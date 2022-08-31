@@ -1,19 +1,19 @@
 <!--
- * @Description: 房产列表
+ * @Description: 隐私声明
  * @Author: wangcc
- * @Date: 2022-08-31 17:23:30
+ * @Date: 2022-08-31 17:51:57
  * @LastEditors: wangcc
- * @LastEditTime: 2022-08-31 17:36:17
- * @FilePath: \jungehouseAdmin\src\views\order\orderList.vue
+ * @LastEditTime: 2022-08-31 17:51:59
+ * @FilePath: \jungehouseAdmin\src\views\about\statement.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
 <template>
-  <div>房产列表</div>
+  <div>隐私声明</div>
 </template>
 
 <script>
 export default {
-  name: 'orderList',
+  name: 'statement',
   data() {
     return {};
   }
