@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-08-31 17:23:30
  * @LastEditors: wangcc
- * @LastEditTime: 2022-09-01 15:38:55
+ * @LastEditTime: 2022-09-01 17:27:29
  * @FilePath: \jungehouseAdmin\src\views\order\orderList.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
@@ -75,10 +75,11 @@
 
 <script>
 import addOrEdit from './dialog/addOrEdit.vue'
+
 export default {
   name: 'orderList',
   components: {
-    addOrEdit
+    addOrEdit,
   },
   data() {
     return {
