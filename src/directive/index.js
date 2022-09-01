@@ -4,12 +4,14 @@ import dialogDrag from './dialog/drag'
 import dialogDragWidth from './dialog/dragWidth'
 import dialogDragHeight from './dialog/dragHeight'
 import clipboard from './module/clipboard'
+import preventReClick from './PreventReClick';
 
 const install = function(Vue) {
   Vue.directive('hasRole', hasRole)
   Vue.directive('hasPermi', hasPermi)
   Vue.directive('clipboard', clipboard)
   Vue.directive('dialogDrag', dialogDrag)
+  Vue.directive('preventReClick', preventReClick);
   Vue.directive('dialogDragWidth', dialogDragWidth)
   Vue.directive('dialogDragHeight', dialogDragHeight)
 }
