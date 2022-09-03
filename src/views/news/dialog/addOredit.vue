@@ -14,40 +14,43 @@
         :rules="rules"
         label-width="120px"
       >
-        <el-form-item label="经纪人姓名：" prop="name">
+        <el-form-item label="新闻标题：" prop="newsTitle">
+          <el-input
+            v-model="addorputForm.newsTitle"
+            size="medium"
+            placeholder="输入标题"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="新闻简介：" prop="answer">
+          <el-input
+            type="textarea"
+            :rows="4"
+            placeholder="请输入新闻简介"
+            v-model="addorputForm.answer"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item label="作者：" prop="name">
           <el-input
             v-model="addorputForm.name"
             size="medium"
-            placeholder="输入经纪人姓名"
+            placeholder="输入作者"
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item label="电话：" prop="phone">
-          <el-input
-            v-model="addorputForm.phone"
-            size="medium"
-            placeholder="输入电话"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="talk账号：" prop="talk">
-          <el-input
-            v-model="addorputForm.talk"
-            size="medium"
-            placeholder="输入talk账号"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="职位：" prop="job">
-          <el-input
-            v-model="addorputForm.job"
-            size="medium"
-            placeholder="输入职位"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="头像：">
+        <el-form-item label="封面：" prop="name">
           <image-upload :limit="1"  @input="fileList"></image-upload>
+        </el-form-item>
+        <el-form-item label="正文：" prop="name">
+          <div class="editor-box">
+              <quill-editor
+                ref="content"
+                class="editor"
+                v-model="addorputForm.newsBody"
+                :options="editorOption"
+              ></quill-editor>
+            </div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -61,7 +64,7 @@
 </template>
 
 <script>
-import { addmiddleman, editmiddleman } from "@/api/agent/index";
+import { addNews, editNews } from "@/api/news/index";
 export default {
   name: "addOredit",
   props: {
@@ -72,12 +75,9 @@ export default {
       addorputVisible: false,
       addorputForm: {},
       rowId: null,
-      fileListArr:[],
       rules: {
-        name: [{ required: true, message: "请输入经纪人姓名", trigger: "blur" }],
-        phone: [{ required: true, message: "请输入电话", trigger: "blur" }],
-        talk: [{ required: true, message: "请输入talk账号", trigger: "blur" }],
-        job: [{ required: true, message: "请输入职位", trigger: "blur" }],
+        question: [{ required: true, message: "请输入问题", trigger: "blur" }],
+        answer: [{ required: true, message: "请输入回答", trigger: "blur" }],
       },
     };
   },
@@ -88,7 +88,6 @@ export default {
       this.addorputVisible = true;
       if (obj) {
         this.addorputForm = obj;
-        this.fileListArr.push(this.addorputForm.headerImg)
         this.rowId = obj.id;
       }
     },
@@ -98,7 +97,6 @@ export default {
     },
     fileList(item) {
       console.log(item);
-      this.addorputForm.headerImg = item
     },
     dialogFormSubmit() {
       console.log(this.addorputForm);
@@ -106,7 +104,7 @@ export default {
         if (valid) {
           if (this.rowId) {
             console.log("xiugai");
-            editmiddleman({...this.addorputForm}).then((res) => {
+            editNews(this.addorputForm).then((res) => {
               if (res.code == 200) {
                 this.$message.success("修改成功！");
                 this.handleClose();
@@ -114,7 +112,7 @@ export default {
             });
           } else {
             console.log("xinzneng");
-            addmiddleman({...this.addorputForm}).then((res) => {
+            addNews(this.addorputForm).then((res) => {
               if (res.code == 200) {
                 this.$message.success("新增成功！");
                 this.handleClose();
