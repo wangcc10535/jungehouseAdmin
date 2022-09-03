@@ -18,7 +18,12 @@
       :before-close="handleClose"
     >
       <div class="dialog-box">
-        <el-form :model="addorputForm" ref="addorputForm" :rules="rules" label-width="120px">
+        <el-form
+          :model="addorputForm"
+          ref="addorputForm"
+          :rules="rules"
+          label-width="120px"
+        >
           <el-form-item label="房产货号：" prop="rangerNo">
             <el-input
               v-model="addorputForm.rangerNo"
@@ -29,13 +34,13 @@
           </el-form-item>
           <el-form-item label="标题：" prop="rangerNo">
             <el-input
-              v-model="addorputForm.rangerNo"
+              v-model="addorputForm.title"
               size="medium"
               placeholder="输入标题"
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="价格：" prop="rangerNo">
+          <el-form-item label="价格：" >
             <div class="price-box">
               <div class="price-box-money">
                 <span>最少：</span>
@@ -43,7 +48,7 @@
                   size="medium"
                   type="number"
                   class="money-input"
-                  v-model="addorputForm.rangerNo"
+                  v-model="addorputForm.lastPrice"
                   placeholder="输入最少价格"
                   autocomplete="off"
                 ></el-input>
@@ -65,7 +70,7 @@
                   size="medium"
                   type="number"
                   class="money-input"
-                  v-model="addorputForm.rangerNo"
+                  v-model="addorputForm.loans"
                   placeholder="输入贷款价格"
                   autocomplete="off"
                 ></el-input>
@@ -73,7 +78,11 @@
             </div>
           </el-form-item>
           <el-form-item label="楼层：" prop="rangerNo">
-            <el-input v-model="addorputForm.rangerNo" placeholder="输入楼层" autocomplete="off"></el-input>
+            <el-input
+              v-model="addorputForm.rangerNo"
+              placeholder="输入楼层"
+              autocomplete="off"
+            ></el-input>
           </el-form-item>
           <el-form-item label="地点信息：" prop="mapAddress">
             <el-input
@@ -83,7 +92,13 @@
               placeholder="选择地点信息"
               autocomplete="off"
             ></el-input>
-            <el-button size="medium" style="margin-left:20px" icon="el-icon-location" @click="getLngLat">选择地点</el-button>
+            <el-button
+              size="medium"
+              style="margin-left: 20px"
+              icon="el-icon-location"
+              @click="getLngLat"
+              >选择地点</el-button
+            >
           </el-form-item>
           <el-form-item label="供给面积：" prop="rangerNo">
             <el-input
@@ -103,20 +118,122 @@
               autocomplete="off"
             ></el-input>
           </el-form-item>
+          <el-form-item label="防水：" prop="rangerNo">
+            <el-select
+              v-model="addorputForm.waterproof"
+              size="medium"
+              style="width: 100%; margin-right: 10px"
+              placeholder="请选择防水"
+            >
+              <el-option
+                v-for="(item, index) in dict.type.house_waterproof"
+                :key="index"
+                :label="item.label"
+                :value="item.value"
+                >{{ item.label }}</el-option
+              >
+            </el-select>
+          </el-form-item>
+          <el-form-item label="浴室：" prop="rangerNo">
+            <el-select
+              v-model="addorputForm.shower"
+              size="medium"
+              style="width: 100%; margin-right: 10px"
+              placeholder="请选择浴室"
+            >
+              <el-option
+                v-for="(item, index) in dict.type.house_shower"
+                :key="index"
+                :label="item.label"
+                :value="item.value"
+                >{{ item.label }}</el-option
+              >
+            </el-select>
+          </el-form-item>
+          <el-form-item label="暖气：" prop="rangerNo">
+            <el-select
+              v-model="addorputForm.heating"
+              size="medium"
+              style="width:100%; margin-right: 10px"
+              placeholder="请选择暖气"
+            >
+              <el-option
+                v-for="(item, index) in dict.type.house_heating"
+                :key="index"
+                :label="item.label"
+                :value="item.value"
+                >{{ item.label }}</el-option
+              >
+            </el-select>
+          </el-form-item>
+          <el-form-item label="交易类型：" prop="rangerNo">
+            <el-select
+              v-model="addorputForm.transaction"
+              size="medium"
+              multiple 
+              style="width: 100%; margin-right: 10px"
+              placeholder="请选择交易类型"
+            >
+              <el-option
+                v-for="(item, index) in dict.type.transaction_type"
+                :key="index"
+                :label="item.label"
+                :value="item.value"
+                >{{ item.label }}</el-option
+              >
+            </el-select>
+          </el-form-item>
+          <el-form-item label="销售类型：" prop="rangerNo">
+            <el-select
+              v-model="addorputForm.saleType"
+              size="medium"
+              
+              style="width: 100%; margin-right: 10px"
+              placeholder="请选择销售类型"
+            >
+              <el-option
+                v-for="(item, index) in dict.type.sale_type"
+                :key="index"
+                :label="item.label"
+                :value="item.value"
+                >{{ item.label }}</el-option
+              >
+            </el-select>
+          </el-form-item>
+          <el-form-item label="住宅类型：" prop="rangerNo">
+            <el-select
+              v-model="addorputForm.residenceType"
+              size="medium"
+              style="width: 100%; margin-right: 10px"
+              placeholder="请选择住宅类型"
+            >
+              <el-option
+                v-for="(item, index) in dict.type.residence_type"
+                :key="index"
+                :label="item.label"
+                :value="item.value"
+                >{{ item.label }}</el-option
+              >
+            </el-select>
+          </el-form-item>
           <el-form-item label="地铁线路距离：" prop="rangerNo">
             <div class="task-lngLat">
-              <div class="lngLat-list" v-for="(item,index) in lngLatList" :key="index">
+              <div
+                class="lngLat-list"
+                v-for="(item, index) in lngLatList"
+                :key="index"
+              >
                 <el-select
                   v-model="item.city"
                   size="medium"
-                  style="width:200px;margin-right:10px;"
+                  style="width: 200px; margin-right: 10px"
                   placeholder="请选择地铁线路"
                 >
                   <el-option
                     v-for="item in cityOptions"
                     :key="item.id"
                     :label="item.rangerName"
-                    :value="{ value: item.id, label: item.rangerName}"
+                    :value="{ value: item.id, label: item.rangerName }"
                   ></el-option>
                 </el-select>
                 <el-input
@@ -130,22 +247,99 @@
                   type="danger"
                   class="link-m"
                   :underline="false"
-                  @click="delLngLat(item,index)"
-                >删除</el-link>
+                  @click="delLngLat(item, index)"
+                  >删除</el-link
+                >
               </div>
-              <el-link type="primary" :underline="false" @click="addLngLat">添加</el-link>
+              <el-link type="primary" :underline="false" @click="addLngLat"
+                >添加地铁线路</el-link
+              >
             </div>
           </el-form-item>
           <el-form-item label="选项信息：" prop="rangerNo">
             <el-checkbox-group v-model="checkboxGroup" size="mini">
-              <el-checkbox v-for="(city,index) in cities" :label="city.name" :key="index" border></el-checkbox>
+              <el-checkbox
+                v-for="(item, index) in dict.type.house_information"
+                :label="item.label"
+                :key="index"
+                :value="item.value"
+                border
+              ></el-checkbox>
             </el-checkbox-group>
           </el-form-item>
           <el-form-item label="房产周边：" prop="rangerNo">
-            <el-input v-model="addorputForm.rangerNo" placeholder="输入护林员工号" autocomplete="off"></el-input>
+            <div class="task-lngLat">
+              <div
+                class="lngLat-list"
+                v-for="(item, index) in peripheryList"
+                :key="index"
+              >
+                <el-select
+                  v-model="item.value"
+                  size="medium"
+                  style="width: 200px; margin-right: 10px"
+                  placeholder="请选择周边类型"
+                >
+                  <el-option
+                    v-for="(periphery, index) in dict.type.house_periphery"
+                    :key="index"
+                    :label="periphery.label"
+                    :value="periphery.value"
+                    >{{ periphery.label }}</el-option
+                  >
+                </el-select>
+                <span>lat:,lng:</span>
+                <el-input
+                  type="hidden"
+                  v-model="item.latLng"
+                  style="width: 10px"
+                ></el-input>
+                <el-link
+                  type="danger"
+                  class="link-m"
+                  :underline="false"
+                  @click="setPeriphery"
+                  >选择地点</el-link
+                >
+                <el-link
+                  type="danger"
+                  class="link-m"
+                  :underline="false"
+                  @click="delPeriphery(item, index)"
+                  >删除</el-link
+                >
+              </div>
+              <el-link type="primary" :underline="false" @click="addPeriphery"
+                >添加周边信息</el-link
+              >
+            </div>
           </el-form-item>
           <el-form-item label="房屋图片：" prop="rangerNo">
-            <el-input v-model="addorputForm.rangerNo" placeholder="输入护林员工号" autocomplete="off"></el-input>
+            <image-upload :limit="20" @input="fileList"></image-upload>
+          </el-form-item>
+          <el-form-item label="绑定经纪人：" prop="rangerNo">
+            <el-select
+                  v-model="addorputForm.value"
+                  size="medium"
+                  style="width: 200px; margin-right: 10px"
+                  placeholder="请选择经纪人"
+                >
+                  <el-option
+                    v-for="(periphery, index) in dict.type.house_periphery"
+                    :key="index"
+                    :label="periphery.label"
+                    :value="periphery.value"
+                    >{{ periphery.label }}</el-option
+                  >
+                </el-select>
+          </el-form-item>
+          <el-form-item label="经纪人电话：" prop="rangerNo">
+            <el-input
+              v-model="addorputForm.rangerNo"
+              size="medium"
+              placeholder="输入经纪人电话"
+              autocomplete="off"
+            ></el-input>
           </el-form-item>
           <el-form-item label="房屋状态：" prop="rangerNo">
             <el-switch
@@ -171,50 +365,74 @@
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="handleClose">取 消</el-button>
-        <el-button type="primary" @click="dialogFormSubmit" v-preventReClick>确 定</el-button>
+        <el-button type="primary" @click="dialogFormSubmit" v-preventReClick
+          >确 定</el-button
+        >
       </div>
       <el-dialog
-      title="位置搜索"
-      :visible.sync="mapVisible"
-      v-if="mapVisible"
-      append-to-body
-      width="60%"
-      :before-close="clickClose"
-    >
-    <naver-map></naver-map>
+        title="位置搜索"
+        :visible.sync="mapVisible"
+        v-if="mapVisible"
+        append-to-body
+        width="60%"
+        :before-close="clickClose"
+      >
+        <naver-map></naver-map>
       </el-dialog>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import naverMap from './naverMap.vue'
+import naverMap from "./naverMap.vue";
+import FileUpload from "../../../components/FileUpload/index.vue";
+import ImageUpload from "../../../components/ImageUpload/index.vue";
 export default {
-  name: 'addOrEdit',
+  name: "addOrEdit",
   props: {
     title: null,
-    addorputForm: {},
-    editorOption: {}
   },
+  dicts: [
+    "house_periphery",
+    "house_information",
+    "house_waterproof",
+    "house_shower",
+    "house_heating",
+    "residence_type",
+    "sale_type",
+    "transaction_type",
+  ],
   components: {
-    naverMap
-  },
+    naverMap,
+    FileUpload,
+    ImageUpload
+},
   data() {
     return {
+      uploadUrl: process.env.VUE_APP_BASE_API + "/common/upload", // 上传的图片服务器地址
       addorputVisible: false,
       mapVisible: false,
       rules: {},
       cityOptions: [],
+      fileType: ['png', 'jpg', 'jpeg'],
       lngLatList: [],
+      peripheryList: [],
       cities: [
         {
-          name: '停车场'
+          name: "停车场",
         },
         {
-          name: '浴室'
-        }
+          name: "浴室",
+        },
       ],
-      checkboxGroup: []
+      checkboxGroup: [],
+      imgDialogVisible: false,
+      dialogImageUrl: null,
+      bucket: "",
+      addorputForm: {
+        imageList: [],
+      },
+      editorOption: {},
     };
   },
   methods: {
@@ -226,35 +444,59 @@ export default {
         this.lngLatList = [];
       }
     },
+    // 关闭弹窗
     handleClose() {
       this.addorputVisible = false;
       this.$parent.getList();
     },
-   
+    // 添加房产信息
     dialogFormSubmit() {},
+    // 打开地图选项天窗
     getLngLat() {
       // this.$refs.naverMap.openMapDialogEven()
       this.mapVisible = true;
     },
-     clickClose() {
+    // 关闭地图弹窗
+    clickClose() {
       this.mapVisible = false;
     },
+    // 添加地铁线路
     addLngLat() {
       this.lngLatList.push({
-        city: '',
-        distance: ''
+        city: "",
+        distance: "",
       });
     },
+    // 删除地铁线路
     delLngLat(item, index) {
       if (this.lngLatList) {
         this.lngLatList.splice(index, 1);
       }
-    }
-  }
+    },
+    // 添加房产周边
+    addPeriphery() {
+      this.peripheryList.push({
+        value: "",
+        latLng: "",
+      });
+    },
+    // 选择周边位置
+    setPeriphery() {},
+    // 删除选择周边
+    delPeriphery(item, index) {
+      if (this.peripheryList) {
+        this.peripheryList.splice(index, 1);
+      }
+    },
+    // 获取上传图片地址
+    fileList(item) {
+      console.log(item);
+    },
+  },
 };
 </script>
 
-<style  lang='scss' scoped>
+<style lang="scss" scoped>
 .price-box {
   // display: flex;
   &-money {
@@ -276,10 +518,9 @@ export default {
   height: 600px;
   .editor {
     height: 100%;
-   
   }
-   ::v-deep .ql-container {
-      height: 79%;
-    }
+  ::v-deep .ql-container {
+    height: 79%;
+  }
 }
 </style>
