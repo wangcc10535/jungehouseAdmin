@@ -222,7 +222,7 @@
                 v-for="(item, index) in lngLatList"
                 :key="index"
               >
-                <el-select
+                <!-- <el-select
                   v-model="item.city"
                   size="medium"
                   style="width: 200px; margin-right: 10px"
@@ -234,7 +234,7 @@
                     :label="item.rangerName"
                     :value="{ value: item.id, label: item.rangerName }"
                   ></el-option>
-                </el-select>
+                </el-select> -->
                 <el-input
                   class="address-size"
                   size="medium"
@@ -316,25 +316,26 @@
           <el-form-item label="房屋图片：">
             <image-upload :limit="20" @input="fileList"></image-upload>
           </el-form-item>
-          <el-form-item label="绑定经纪人：" prop="rangerNo">
+          <el-form-item label="绑定经纪人：" prop="middlemanId">
             <el-select
-              v-model="addorputForm.value"
+              v-model="addorputForm.middlemanId"
               size="medium"
+              @change="agentChange"
               style="width: 200px; margin-right: 10px"
               placeholder="请选择经纪人"
             >
               <el-option
-                v-for="(periphery, index) in dict.type.house_periphery"
+                v-for="(periphery, index) in agentOption"
                 :key="index"
-                :label="periphery.label"
-                :value="periphery.value"
-                >{{ periphery.label }}</el-option
+                :label="periphery.name"
+                :value="periphery.id"
+                >{{ periphery.name }}</el-option
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="经纪人电话：" prop="rangerNo">
+          <el-form-item label="经纪人电话：" prop="phone">
             <el-input
-              v-model="addorputForm.rangerNo"
+              v-model="addorputForm.phone"
               size="medium"
               placeholder="输入经纪人电话"
               autocomplete="off"
@@ -347,11 +348,13 @@
               inactive-color="#ff4949"
               active-text="上架"
               inactive-text="下架"
+              active-value="1"
+              inactive-value="0"
             ></el-switch>
           </el-form-item>
-          <el-form-item label="详情信息：" prop="rangerNo">
+          <el-form-item label="详情信息：" prop="item">
             <div class="editor-box">
-              <editor class="editor" v-model="addorputForm.newsBody"></editor>
+              <editor class="editor" v-model="addorputForm.item"></editor>
             </div>
           </el-form-item>
         </el-form>
@@ -431,6 +434,7 @@ export default {
       },
       editorOption: {},
       peripheryData: {},
+      agentOption: [],
     };
   },
   created() {
@@ -453,6 +457,7 @@ export default {
     // 添加房产信息
     dialogFormSubmit() {
       console.log(this.peripheryList);
+      console.log(this.checkboxGroup);
     },
     // 打开地图选项天窗
     getLngLat(name) {
@@ -469,11 +474,11 @@ export default {
         this.addorputForm.address = data.address;
       } else if (data && data.selType == "periphery") {
         this.peripheryList.push({
-          type: '',
-          lon:data.lng,
-          lat:data.lat,
-          peripheryAddress:data.address
-        })
+          type: "",
+          lon: data.lng,
+          lat: data.lat,
+          peripheryAddress: data.address,
+        });
         console.log(this.peripheryList);
       }
       this.mapVisible = false;
@@ -493,13 +498,7 @@ export default {
     },
     // 添加房产周边
     addPeriphery() {
-      // this.peripheryList.push({
-      //   type: "",
-      //   lat: "",
-      //   lon: "",
-      //   peripheryAddress: "",
-      // });
-      this.setPeriphery('periphery')
+      this.setPeriphery("periphery");
     },
     // 选择周边位置
     setPeriphery(name) {
@@ -516,12 +515,27 @@ export default {
     },
     // 获取上传图片地址
     fileList(item) {
-      console.log(item);
+      this.addorputForm.roomImages = [];
+      let Images = item.split(',');
+      Images.forEach(item =>{
+        let imgData = {}
+        imgData.image = item;
+        this.addorputForm.roomImages.push(imgData)
+      })
+      console.log(this.addorputForm.roomImages);
     },
     // 获取经纪人列表
     getmiddleman() {
       listmiddleman({}).then((res) => {
-        console.log(res);
+        this.agentOption = res.rows;
+      });
+    },
+    // 经纪人电话
+    agentChange(e) {
+      this.agentOption.forEach((item) => {
+        if ((item.id = e)) {
+          this.addorputForm.phone = item.phone;
+        }
       });
     },
   },

@@ -27,7 +27,6 @@
             ref="imgUpload"
             :limit="1"
             @input="fileList"
-            :fileListArr="fileArr"
           ></image-upload>
         </el-form-item>
       </el-form>
@@ -49,6 +48,8 @@ export default {
   data() {
     return {
       addorputVisible: false,
+      addorputForm: {},
+      rules: {}
     };
   },
   methods: {

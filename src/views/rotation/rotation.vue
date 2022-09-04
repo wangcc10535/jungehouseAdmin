@@ -94,6 +94,7 @@
 import banner from "./dialog/addRedit.vue";
 export default {
   name: "rotation",
+  components: { banner },
   data() {
     return {
       searchFrom: {},
@@ -106,16 +107,18 @@ export default {
       },
     };
   },
-  //  新增
-  addbanner() {
-    this.$refs.bannerRef.openVisible();
+  methods: {
+    //  新增
+    addbanner() {
+      this.$refs.bannerRef.openVisible();
+    },
+    // 修改
+    edit(item) {},
+    // 删除
+    compDelete(item) {},
+    // 列表查询
+    getList() {},
   },
-  // 修改
-  edit(item) {},
-  // 删除
-  compDelete(item) {},
-  // 列表查询
-  getList() {}
 };
 </script>
 
