@@ -41,6 +41,9 @@
 </template>
 
 <script>
+import {addFaq} from "@/api/question";
+import {addBanner} from "@/api/rotation";
+
 export default {
   props: {
     title: null,
@@ -48,7 +51,8 @@ export default {
   data() {
     return {
       addorputVisible: false,
-      addorputForm: {},
+      addorputForm: {
+      },
       rules: {}
     };
   },
@@ -56,11 +60,29 @@ export default {
     handleClose() {
       this.addorputVisible = false;
     },
-    dialogFormSubmit() {},
+    dialogFormSubmit() {
+      console.log(this.addorputForm);
+
+      var  version ={
+        "dictType":"banner",
+        "dictLabel": this.addorputForm.newsTitle,
+        "dictValue":this.addorputForm.image
+      }
+
+      addBanner(version).then((res) => {
+        console.log(res)
+
+        if (res.code == 200) {
+          this.$message.success("新增成功！");
+          this.handleClose();
+        }
+      });
+    },
     openVisible() {
       this.addorputVisible = true;
     },
     fileList(img) {
+      this.addorputForm.image = img
       console.log(img);
     },
   },

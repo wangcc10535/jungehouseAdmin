@@ -5,7 +5,7 @@
  * @LastEditors: wangcc
  * @LastEditTime: 2022-09-01 11:50:42
  * @FilePath: \jungehouseAdmin\src\views\rotation\rotation.vue
- * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
+ * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved.
 -->
 <template>
   <div class="app-container app-menu">
@@ -44,7 +44,7 @@
           <el-table-column label="图片" align="center">
             <template slot-scope="{ row }">
               <div class="img-box">
-                <img :src="row.image" alt="" />
+                <img :src="row.dictValue" alt="" />
               </div>
             </template>
           </el-table-column>
@@ -92,6 +92,7 @@
 
 <script>
 import banner from "./dialog/addRedit.vue";
+import {addBanner, delBanner, getBanners} from "@/api/rotation";
 export default {
   name: "rotation",
   components: { banner },
@@ -107,17 +108,37 @@ export default {
       },
     };
   },
+  created() {
+    this.getList();
+  },
   methods: {
     //  新增
     addbanner() {
       this.$refs.bannerRef.openVisible();
     },
     // 修改
-    edit(item) {},
+    edit(item) {
+      this.title = "修改问答";
+      this.$refs.bannerRef.openVisible();
+    },
     // 删除
-    compDelete(item) {},
+    compDelete(item) {
+      console.log(item)
+      delBanner(item.dictCode).then((res) => {
+        if (res.code == 200) {
+          this.$message.success("删除成功！");
+          this.getList();
+        }
+      });
+    },
     // 列表查询
-    getList() {},
+    getList() {
+      getBanners().then((res) => {
+        if (res.code == 200) {
+          this.tableData = res.data;
+        }
+      });
+    },
   },
 };
 </script>

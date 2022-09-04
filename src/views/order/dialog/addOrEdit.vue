@@ -84,6 +84,13 @@
               autocomplete="off"
             ></el-input>
           </el-form-item>
+          <el-form-item label="房间数：" prop="floor">
+            <el-input
+              v-model="addorputForm.roomNum"
+              placeholder="输入房间数"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
           <el-form-item label="地点信息：" prop="address">
             <el-input
               size="medium"
@@ -117,6 +124,41 @@
               placeholder="输入实际面积"
               autocomplete="off"
             ></el-input>
+          </el-form-item>
+          
+          <el-form-item label="促销：" prop="marketingLabel">
+            <el-select
+              v-model="addorputForm.marketingLabel"
+              multiple
+              size="medium"
+              style="width: 100%; margin-right: 10px"
+              placeholder="请选择促销"
+            >
+              <el-option
+                v-for="(item, index) in dict.type.promotion_type"
+                :key="index"
+                :label="item.label"
+                :value="item.value"
+                >{{ item.label }}</el-option
+              >
+            </el-select>
+          </el-form-item>
+          <el-form-item label="标题标签：" prop="titleLabel">
+            <el-select
+              v-model="addorputForm.titleLabel"
+              size="medium"
+              style="width: 100%; margin-right: 10px"
+              multiple
+              placeholder="请选择标题标签"
+            >
+              <el-option
+                v-for="(item, index) in dict.type.title_type"
+                :key="index"
+                :label="item.label"
+                :value="item.value"
+                >{{ item.label }}</el-option
+              >
+            </el-select>
           </el-form-item>
           <el-form-item label="防水：" prop="waterRepellent">
             <el-select
@@ -238,7 +280,14 @@
                 <el-input
                   class="address-size"
                   size="medium"
-                  v-model="item.distance"
+                  v-model="item.name"
+                  placeholder="输入地铁"
+                  autocomplete="off"
+                ></el-input>
+                <el-input
+                  class="address-size"
+                  size="medium"
+                  v-model="item.info"
                   placeholder="输入站点距离（如：直竹站 1.5 公里）"
                   autocomplete="off"
                 ></el-input>
@@ -391,6 +440,7 @@ import naverMap from "./naverMap.vue";
 import FileUpload from "../../../components/FileUpload/index.vue";
 import ImageUpload from "../../../components/ImageUpload/index.vue";
 import { listmiddleman } from "@/api/agent/index";
+import {addRoom, updateRoom} from '@/api/order/index'
 export default {
   name: "addOrEdit",
   props: {
@@ -405,6 +455,8 @@ export default {
     "residence_type",
     "sale_type",
     "transaction_type",
+    "title_type",
+    "promotion_type"
   ],
   components: {
     naverMap,
@@ -429,9 +481,7 @@ export default {
       imgDialogVisible: false,
       dialogImageUrl: null,
       bucket: "",
-      addorputForm: {
-        imageList: [],
-      },
+      addorputForm: {},
       editorOption: {},
       peripheryData: {},
       agentOption: [],
@@ -456,8 +506,16 @@ export default {
     },
     // 添加房产信息
     dialogFormSubmit() {
-      console.log(this.peripheryList);
-      console.log(this.checkboxGroup);
+      this.addorputForm.option = this.checkboxGroup
+      this.addorputForm.roomNeighbors = this.peripheryList
+      this.addorputForm.roomSubways = this.lngLatList
+      console.log(this.addorputForm);
+      addRoom(this.addorputForm).then( res =>{
+        if (res.code == 200) {
+          this.$message.success('新增成功！')
+          this.handleClose()
+        }
+      })
     },
     // 打开地图选项天窗
     getLngLat(name) {
@@ -486,8 +544,8 @@ export default {
     // 添加地铁线路
     addLngLat() {
       this.lngLatList.push({
-        city: "",
-        distance: "",
+        name: "",
+        info: "",
       });
     },
     // 删除地铁线路
