@@ -58,7 +58,7 @@
               fixed="left"
             ></el-table-column>
             <el-table-column
-              prop="answer"
+              prop="info"
               label="简介"
               align="center"
             ></el-table-column>
@@ -68,10 +68,15 @@
               align="center"
             ></el-table-column>
             <el-table-column
-              prop="answer"
               label="封面"
               align="center"
-            ></el-table-column>
+            >
+            <template slot-scope="{ row }">
+              <div class="img-box">
+                <img :src="row.image" alt="">
+              </div>
+            </template>
+          </el-table-column>
             <el-table-column label="操作" align="center">
               <template slot-scope="{ row }">
                 <el-button
@@ -172,5 +177,16 @@
   };
   </script>
   
-  <style lang="scss" scoped></style>
+  <style lang="scss" scoped>
+    .img-box{
+      width: 40px;
+      height: 50px;
+      display: inline-block;
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  </style>
   

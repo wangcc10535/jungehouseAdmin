@@ -22,12 +22,12 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item label="新闻简介：" prop="answer">
+        <el-form-item label="新闻简介：" prop="info">
           <el-input
             type="textarea"
             :rows="4"
             placeholder="请输入新闻简介"
-            v-model="addorputForm.answer"
+            v-model="addorputForm.info"
           >
           </el-input>
         </el-form-item>
@@ -39,18 +39,13 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item label="封面：" prop="name">
-          <image-upload :limit="1"  @input="fileList"></image-upload>
+        <el-form-item label="封面：">
+          <image-upload ref="imgUpload" :limit="1" @input="fileList" :fileListArr="fileArr"></image-upload>
         </el-form-item>
-        <el-form-item label="正文：" prop="name">
+        <el-form-item label="正文：" prop="newsBody">
           <div class="editor-box">
-              <quill-editor
-                ref="content"
-                class="editor"
-                v-model="addorputForm.newsBody"
-                :options="editorOption"
-              ></quill-editor>
-            </div>
+            <editor class="editor" v-model="addorputForm.newsBody"></editor>
+          </div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -74,10 +69,17 @@ export default {
     return {
       addorputVisible: false,
       addorputForm: {},
+      editorOption: {},
+      fileArr: [],
       rowId: null,
       rules: {
-        question: [{ required: true, message: "请输入问题", trigger: "blur" }],
-        answer: [{ required: true, message: "请输入回答", trigger: "blur" }],
+        newsTitle: [{ required: true, message: "请输入标题", trigger: "blur" }],
+        info: [{ required: true, message: "请输入简介", trigger: "blur" }],
+        name: [{ required: true, message: "请输入作者", trigger: "blur" }],
+        newsBody: [
+          { required: true, message: "请输入正文内容", trigger: "blur" },
+        ],
+        // answer: [{ required: true, message: "请输入回答", trigger: "blur" }],
       },
     };
   },
@@ -87,8 +89,15 @@ export default {
       this.addorputForm = {};
       this.addorputVisible = true;
       if (obj) {
+        let images = []
         this.addorputForm = obj;
+        images.push({
+          name:obj.image,
+          url:obj.image
+        })
+        this.fileArr = images
         this.rowId = obj.id;
+        console.log(this.addorputForm);
       }
     },
     handleClose() {
@@ -96,14 +105,17 @@ export default {
       this.$parent.getList();
     },
     fileList(item) {
-      console.log(item);
+      this.addorputForm.image = item;
     },
     dialogFormSubmit() {
       console.log(this.addorputForm);
       this.$refs["addorputForm"].validate((valid) => {
         if (valid) {
+          if (!this.addorputForm.image) {
+            this.$message.error("必须添加封面图片！");
+            return false;
+          }
           if (this.rowId) {
-            console.log("xiugai");
             editNews(this.addorputForm).then((res) => {
               if (res.code == 200) {
                 this.$message.success("修改成功！");
@@ -111,7 +123,6 @@ export default {
               }
             });
           } else {
-            console.log("xinzneng");
             addNews(this.addorputForm).then((res) => {
               if (res.code == 200) {
                 this.$message.success("新增成功！");
@@ -130,7 +141,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .editor-box {
+.editor-box {
   height: 600px;
   .editor {
     height: 100%;
