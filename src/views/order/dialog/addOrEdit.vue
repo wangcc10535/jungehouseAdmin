@@ -468,12 +468,12 @@ export default {
         this.addorputForm.lat = data.lat;
         this.addorputForm.address = data.address;
       } else if (data && data.selType == "periphery") {
-        // this.peripheryList.push({
-        //   type: '',
-        //   lon:data.lng,
-        //   lat:data.lat,
-        //   peripheryAddress:data.address
-        // })
+        this.peripheryList.push({
+          type: '',
+          lon:data.lng,
+          lat:data.lat,
+          peripheryAddress:data.address
+        })
         console.log(this.peripheryList);
       }
       this.mapVisible = false;
@@ -493,12 +493,13 @@ export default {
     },
     // 添加房产周边
     addPeriphery() {
-      this.peripheryList.push({
-        type: "",
-        lat: "",
-        lon: "",
-        peripheryAddress: "",
-      });
+      // this.peripheryList.push({
+      //   type: "",
+      //   lat: "",
+      //   lon: "",
+      //   peripheryAddress: "",
+      // });
+      this.setPeriphery('periphery')
     },
     // 选择周边位置
     setPeriphery(name) {
