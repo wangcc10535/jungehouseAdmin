@@ -80,6 +80,7 @@ export default {
       });
     },
     openVisible() {
+      this.addorputForm = {};
       this.addorputVisible = true;
     },
     fileList(img) {

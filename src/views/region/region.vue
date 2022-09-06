@@ -125,6 +125,7 @@ export default {
       getRegion().then((res) => {
         if (res.code == 200) {
           this.tableData = res.data;
+          this.total = res.total;
         }
       });
     },

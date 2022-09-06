@@ -14,15 +14,15 @@
           :rules="rules"
           label-width="120px"
         >
-          <el-form-item label="地区名称：">
+          <el-form-item label="企业链接：">
             <el-input
-              v-model="addorputForm.regionName"
+              v-model="addorputForm.url"
               size="medium"
-              placeholder="输入地区名称"
+              placeholder="输入企业链接"
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="广告：">
+          <el-form-item label="图片：">
             <image-upload
               ref="imgUpload"
               :limit="1"
@@ -41,7 +41,7 @@
   </template>
   
   <script>
-  import {addRegion} from "@/api/region";
+  import {addCooperation} from "@/api/cooperation";
   
   export default {
     props: {
@@ -63,12 +63,12 @@
         console.log(this.addorputForm);
   
         var  version ={
-          "dictType":"region",
-          "dictLabel": this.addorputForm.regionName,
+          "dictType":"cooperation",
+          "dictLabel": this.addorputForm.url,
           "dictValue":this.addorputForm.image
         }
   
-        addRegion(version).then((res) => {
+        addCooperation(version).then((res) => {
           console.log(res)
   
           if (res.code == 200) {

@@ -33,7 +33,7 @@
           ></el-table-column>
           <el-table-column label="图片" align="center">
             <template slot-scope="{ row }">
-              <div class="img-box">
+              <div class="img-box" v-viewer>
                 <img :src="row.dictValue" alt="" />
               </div>
             </template>
@@ -127,6 +127,7 @@ export default {
       getBanners().then((res) => {
         if (res.code == 200) {
           this.tableData = res.data;
+          this.total = res.total;
         }
       });
     },
