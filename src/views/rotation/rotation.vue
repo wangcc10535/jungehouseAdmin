@@ -9,16 +9,6 @@
 -->
 <template>
   <div class="app-container app-menu">
-    <div class="topSearch base-background top-box">
-      <div class="topSearch-base magin-base">
-        <span>搜索名称：</span>
-        <el-input
-          class="topSearch-width"
-          v-model="searchFrom.planName"
-          placeholder="请输入"
-        ></el-input>
-      </div>
-    </div>
     <div class="content base-background">
       <el-button
         type="primary"
@@ -114,12 +104,13 @@ export default {
   methods: {
     //  新增
     addbanner() {
+      this.diaitle = "新增广告";
       this.$refs.bannerRef.openVisible();
     },
     // 修改
     edit(item) {
-      this.title = "修改问答";
-      this.$refs.bannerRef.openVisible();
+      this.diaitle = "修改广告";
+      this.$refs.bannerRef.openVisible(item);
     },
     // 删除
     compDelete(item) {
@@ -143,4 +134,16 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .img-box{
+    width:192px;
+    height: 45px;
+    display: inline-block;
+    img{
+      width:100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+  }
+</style>

@@ -125,7 +125,7 @@
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          
+
           <el-form-item label="促销：" prop="marketingLabel">
             <el-select
               v-model="addorputForm.marketingLabel"
@@ -440,7 +440,7 @@ import naverMap from "./naverMap.vue";
 import FileUpload from "../../../components/FileUpload/index.vue";
 import ImageUpload from "../../../components/ImageUpload/index.vue";
 import { listmiddleman } from "@/api/agent/index";
-import {addRoom, updateRoom} from '@/api/order/index'
+import { addRoom, updateRoom } from "@/api/order/index";
 export default {
   name: "addOrEdit",
   props: {
@@ -456,7 +456,7 @@ export default {
     "sale_type",
     "transaction_type",
     "title_type",
-    "promotion_type"
+    "promotion_type",
   ],
   components: {
     naverMap,
@@ -506,16 +506,20 @@ export default {
     },
     // 添加房产信息
     dialogFormSubmit() {
-      this.addorputForm.option = this.checkboxGroup
-      this.addorputForm.roomNeighbors = this.peripheryList
-      this.addorputForm.roomSubways = this.lngLatList
+      this.addorputForm.option = this.checkboxGroup.toString();
+      this.addorputForm.roomNeighbors = this.peripheryList;
+      this.addorputForm.roomSubways = this.lngLatList;
+      this.addorputForm.marketingLabel =
+        this.addorputForm.marketingLabel.toString();
+      this.addorputForm.titleLabel = this.addorputForm.titleLabel.toString();
+      this.addorputForm.trade_type = this.addorputForm.trade_type.toString();
       console.log(this.addorputForm);
-      addRoom(this.addorputForm).then( res =>{
+      addRoom({ ...this.addorputForm }).then((res) => {
         if (res.code == 200) {
-          this.$message.success('新增成功！')
-          this.handleClose()
+          this.$message.success("新增成功！");
+          this.handleClose();
         }
-      })
+      });
     },
     // 打开地图选项天窗
     getLngLat(name) {
@@ -574,12 +578,12 @@ export default {
     // 获取上传图片地址
     fileList(item) {
       this.addorputForm.roomImages = [];
-      let Images = item.split(',');
-      Images.forEach(item =>{
-        let imgData = {}
+      let Images = item.split(",");
+      Images.forEach((item) => {
+        let imgData = {};
         imgData.image = item;
-        this.addorputForm.roomImages.push(imgData)
-      })
+        this.addorputForm.roomImages.push(imgData);
+      });
       console.log(this.addorputForm.roomImages);
     },
     // 获取经纪人列表

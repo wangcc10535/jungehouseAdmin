@@ -9,29 +9,139 @@
 -->
 <template>
   <div class="app-container app-menu">
-    <div class="topSearch base-background top-box">
-      <div class="topSearch-base magin-base">
-        <span>搜索名称：</span>
-        <el-input class="topSearch-width" v-model="searchFrom.planName" placeholder="请输入"></el-input>
+    <div class="content base-background">
+      <el-button type="primary" size="mini" icon="el-icon-plus" @click="addRegion"
+        >添加地区</el-button
+      >
+      <div class="content-table">
+        <el-table
+          :data="tableData"
+          border
+          style="width: 100%; margin-bottom: 20px"
+          height="540"
+        >
+          <el-table-column
+            type="index"
+            label="序号"
+            width="50"
+            align="center"
+            fixed="left"
+          ></el-table-column>
+          <el-table-column label="地区名称" prop="dictLabel" align="center">
+          </el-table-column>
+          <el-table-column label="图片" align="center">
+            <template slot-scope="{ row }">
+              <div class="img-box" v-viewer>
+                <img :src="row.dictValue" alt="" />
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" align="center">
+            <template slot-scope="{ row }">
+              <el-button
+                @click="edit(row)"
+                size="small"
+                class="link-m"
+                type="warning"
+                >编辑</el-button
+              >
+              <el-popconfirm
+                confirm-button-text="是的"
+                cancel-button-text="不用了"
+                @confirm="compDelete(row)"
+                title="确定删除吗？"
+              >
+                <el-button
+                  type="danger"
+                  size="small"
+                  class="link-m"
+                  slot="reference"
+                  v-hasPermi="['personnel:delstaff:configure']"
+                  >删除</el-button
+                >
+              </el-popconfirm>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      <!--   分页   -->
+      <div class="pagination-box" v-if="total > 0">
+        <pagination
+          :total="total"
+          :page.sync="queryParams.pageNum"
+          :limit.sync="queryParams.pageSize"
+          @pagination="getList"
+        />
       </div>
     </div>
-    <div class="content base-background">
-      <el-button type="primary" size="mini" icon="el-icon-plus" @click="addPlan">添加地区</el-button>
-      <div class="content-table">前往地区图片</div>
-    </div>
+    <addialog ref="addialog" :title="diaitle"></addialog>
   </div>
 </template>
 
 <script>
+import {delRegion, getRegion} from "@/api/region";
+import addialog from './dialog/addOreidt.vue'
 export default {
-  name: 'region',
+  name: "region",
+  components: {addialog},
   data() {
     return {
-      searchFrom: {}
+      searchFrom: {},
+      diaitle: null,
+      total: 0,
+      tableData: [],
+      queryParams: {
+        pageNum: 1,
+        pageSize: 10,
+      },
     };
-  }
+  },
+  created() {
+    this.getList();
+  },
+  methods: {
+    //  新增
+    addRegion() {
+      this.diaitle = "新增地区";
+      this.$refs.addialog.openVisible();
+    },
+    // 修改
+    edit(item) {
+      this.diaitle = "修改地区";
+      this.$refs.addialog.openVisible();
+    },
+    // 删除
+    compDelete(item) {
+      console.log(item)
+      delRegion(item.dictCode).then((res) => {
+        if (res.code == 200) {
+          this.$message.success("删除成功！");
+          this.getList();
+        }
+      });
+    },
+    // 列表查询
+    getList() {
+      getRegion().then((res) => {
+        if (res.code == 200) {
+          this.tableData = res.data;
+        }
+      });
+    },
+  },
 };
 </script>
 
-<style  lang='scss' scoped>
+<style lang="scss" scoped>
+  .img-box{
+    width:28px;
+    height: 37px;
+    display: inline-block;
+    img{
+      width:100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+  }
 </style>
