@@ -43,24 +43,24 @@
           <el-form-item label="价格：">
             <div class="price-box">
               <div class="price-box-money">
-                <span>最少：</span>
+                <span>总价：</span>
                 <el-input
                   size="medium"
                   type="number"
                   class="money-input"
                   v-model="addorputForm.lastPrice"
-                  placeholder="输入最少价格"
+                  placeholder="输入总价价格"
                   autocomplete="off"
                 ></el-input>
               </div>
               <div class="price-box-money">
-                <span>房间：</span>
+                <span>首付：</span>
                 <el-input
                   size="medium"
                   type="number"
                   class="money-input"
-                  v-model="addorputForm.room_price"
-                  placeholder="输入房间价格"
+                  v-model="addorputForm.roomPrice"
+                  placeholder="输入首付金额"
                   autocomplete="off"
                 ></el-input>
               </div>
@@ -84,10 +84,24 @@
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="房间数：" prop="floor">
+          <el-form-item label="房间数：" prop="roomNum">
             <el-input
               v-model="addorputForm.roomNum"
               placeholder="输入房间数"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="户数：" prop="familyNum">
+            <el-input
+              v-model="addorputForm.familyNum"
+              placeholder="输入户数"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="所在城市：" prop="city">
+            <el-input
+              v-model="addorputForm.city"
+              placeholder="输入所在城市"
               autocomplete="off"
             ></el-input>
           </el-form-item>
@@ -120,7 +134,7 @@
             <el-input
               type="number"
               size="medium"
-              v-model="addorputForm.actual_area"
+              v-model="addorputForm.actualArea"
               placeholder="输入实际面积"
               autocomplete="off"
             ></el-input>
@@ -129,7 +143,6 @@
           <el-form-item label="促销：" prop="marketingLabel">
             <el-select
               v-model="addorputForm.marketingLabel"
-              multiple
               size="medium"
               style="width: 100%; margin-right: 10px"
               placeholder="请选择促销"
@@ -208,9 +221,9 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="交易类型：" prop="trade_type">
+          <el-form-item label="交易类型：" prop="tradeType">
             <el-select
-              v-model="addorputForm.trade_type"
+              v-model="addorputForm.tradeType"
               size="medium"
               multiple
               style="width: 100%; margin-right: 10px"
@@ -225,9 +238,9 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="销售类型：" prop="sale_type">
+          <el-form-item label="销售类型：" prop="saleType">
             <el-select
-              v-model="addorputForm.sale_type"
+              v-model="addorputForm.saleType"
               size="medium"
               style="width: 100%; margin-right: 10px"
               placeholder="请选择销售类型"
@@ -241,9 +254,9 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="住宅类型：" prop="home_type">
+          <el-form-item label="住宅类型：" prop="homeType">
             <el-select
-              v-model="addorputForm.home_type"
+              v-model="addorputForm.homeType"
               size="medium"
               style="width: 100%; margin-right: 10px"
               placeholder="请选择住宅类型"
@@ -390,9 +403,9 @@
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="房屋状态：" prop="rangerNo">
+          <el-form-item label="房屋状态：" prop="status">
             <el-switch
-              v-model="addorputForm.switch"
+              v-model="addorputForm.status"
               active-color="#13ce66"
               inactive-color="#ff4949"
               active-text="上架"
@@ -512,12 +525,13 @@ export default {
       this.addorputForm.marketingLabel =
         this.addorputForm.marketingLabel.toString();
       this.addorputForm.titleLabel = this.addorputForm.titleLabel.toString();
-      this.addorputForm.trade_type = this.addorputForm.trade_type.toString();
+      this.addorputForm.tradeType = this.addorputForm.tradeType.toString();
       console.log(this.addorputForm);
       addRoom({ ...this.addorputForm }).then((res) => {
         if (res.code == 200) {
           this.$message.success("新增成功！");
           this.handleClose();
+          this.$parent.getList()
         }
       });
     },

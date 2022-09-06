@@ -36,18 +36,28 @@
           <el-table-column  label="价格" align="center">
             <template slot-scope="{row}">
               <span>最少：{{row.lastPrice}}</span>
-              <span>最间：{{row.room_price}}</span>
+              <span>最间：{{row.roomPrice}}</span>
               <span>贷款{{row.loans}}</span>
             </template>
           </el-table-column>
           <el-table-column prop="area" label="供给面积" align="center"></el-table-column>
-          <el-table-column prop="actual_area" label="实际面积" align="center"></el-table-column>
+          <el-table-column prop="actualArea" label="实际面积" align="center"></el-table-column>
           <el-table-column prop="roomNum" label="房间" align="center"></el-table-column>
           <el-table-column prop="option" label="选项信息" align="center"></el-table-column>
-          <el-table-column prop="planName" label="促销标签" align="center"></el-table-column>
-          <el-table-column prop="planName" label="标题促销" align="center"></el-table-column>
-          <el-table-column prop="planName" label="图片" align="center"></el-table-column>
-          <el-table-column prop="planName" label="状态" align="center" fixed="right"></el-table-column>
+          <el-table-column prop="marketingLabel" label="促销标签" align="center"></el-table-column>
+          <el-table-column prop="titleLabel" label="标题促销" align="center"></el-table-column>
+          <el-table-column prop="planName" label="图片" align="center">
+            <template slot-scope="{row}">
+              <div class="rowImg">
+                <img v-for="(item,index) in row.roomImages" :key="index" :src="item.image" alt="">
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="planName" label="状态" align="center" fixed="right">
+            <template slot-scope="{row}">
+              <span>{{selectDictLabel(dict.type.house_status,row.status)}}</span>
+            </template>
+          </el-table-column>
           <el-table-column label="操作" align="center" fixed="right">
             <template slot-scope="{row}">
               <el-button
@@ -92,11 +102,13 @@
 <script>
 import addOrEdit from './dialog/addOrEdit.vue'
 import {deleteRoom, searchRoom} from '@/api/order/index'
+// house_status
 export default {
   name: 'orderList',
   components: {
     addOrEdit,
   },
+  dicts: ['house_status'],
   data() {
     return {
       searchFrom: {},
