@@ -15,7 +15,7 @@
           <editor class="editor" v-model="addorputForm"></editor>
         </div>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="addeditor">新增</el-button>
+          <!-- <el-button @click="addeditor">新增</el-button> -->
           <el-button type="primary" @click="dialogFormSubmit" v-preventReClick
             >确 定</el-button
           >

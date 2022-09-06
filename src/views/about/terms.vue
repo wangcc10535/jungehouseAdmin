@@ -15,7 +15,7 @@
           <editor class="editor" v-model="addorputForm"></editor>
         </div>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="addeditor">新增</el-button>
+          <!-- <el-button @click="addeditor">新增</el-button> -->
           <el-button type="primary" @click="dialogFormSubmit" v-preventReClick
             >确 定</el-button
           >
@@ -49,8 +49,7 @@ export default {
         dictValue: this.addorputForm.toString(),
         dictCode: this.aboutBody.dictCode
       };
-      console.log(version);
-      editStatement(version).then((res) => {
+      editTerms(version).then((res) => {
         if (res.code == 200) {
           this.$message.success("修改成功！");
           // this.getList();
@@ -63,8 +62,7 @@ export default {
         dictLabel: '服务条款',
         dictValue: this.addorputForm,
       };
-      addStatement(version).then((res) => {
-        console.log(res);
+      addTerms(version).then((res) => {
         if (res.code == 200) {
           this.$message.success("新增成功！");
           this.getList();
@@ -72,11 +70,10 @@ export default {
       });
     },
     getlist() {
-      getStatement().then((res) => {
+      getTerms().then((res) => {
         if (res.code == 200) {
           this.aboutBody = res.data[0];
           this.addorputForm = this.aboutBody.dictValue
-          console.log(this.aboutBody);
         }
       });
     }
