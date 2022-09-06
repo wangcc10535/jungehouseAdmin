@@ -8,22 +8,89 @@
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
 <template>
-<div>
-关于我们
-</div>
+  <div class="app-container app-menu">
+    <div class="content base-background">
+      <div class="content-table">
+        <div class="editor-box">
+          <editor class="editor" v-model="addorputForm"></editor>
+        </div>
+        <div slot="footer" class="dialog-footer">
+          <!-- <el-button @click="addeditor">新增</el-button> -->
+          <el-button type="primary" @click="dialogFormSubmit" v-preventReClick
+            >提  交</el-button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+  import {addAboutus,getAboutus,editAboutus} from '@/api/about'
 export default {
-  name:'aboutus',
-  data(){
-   return {
-
-   }
-  }
-}
+  name: "aboutus",
+  data() {
+    return {
+      addorputForm: '',
+      aboutBody: {},
+      editor: true,
+      tableData: []
+    };
+  },
+  created() {
+    this.getlist()
+  },
+  methods: {
+    handleClose() {},
+    dialogFormSubmit() {
+      var version = {
+        dictType: "aboutus",
+        dictLabel: '关于我们',
+        dictValue: this.addorputForm.toString(),
+        dictCode: this.aboutBody.dictCode
+      };
+      console.log(version);
+      editAboutus(version).then((res) => {
+        if (res.code == 200) {
+          this.$message.success("修改成功！");
+          // this.getList();
+        }
+      });
+    },
+    addeditor() {
+      var version = {
+        dictType: "aboutus",
+        dictLabel: '关于我们',
+        dictValue: this.addorputForm,
+      };
+      addAboutus(version).then((res) => {
+        console.log(res);
+        if (res.code == 200) {
+          this.$message.success("新增成功！");
+          this.getList();
+        }
+      });
+    },
+    getlist() {
+      getAboutus().then((res) => {
+        if (res.code == 200) {
+          this.aboutBody = res.data[0];
+          this.addorputForm = this.aboutBody.dictValue
+          console.log(this.aboutBody);
+        }
+      });
+    }
+  },
+};
 </script>
 
-<style  lang='scss' scoped>
-
+<style lang="scss" scoped>
+.editor-box {
+  height: 600px;
+  .editor {
+    height: 100%;
+  }
+  ::v-deep .ql-container {
+    height: 79%;
+  }
+}
 </style>
