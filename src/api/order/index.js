@@ -43,3 +43,33 @@ export function searchRoom(data) {
     data: data,
   });
 }
+
+// 用户咨询查询
+
+export function searchRequire(data) {
+  return request({
+    url: "/require/update",
+    method: "post",
+    data: data,
+  });
+}
+
+// 用户咨询修改
+
+export function updateRequire(data) {
+  return request({
+    url: "/require/selectList",
+    method: "post",
+    data: data,
+  });
+}
+
+// 用户咨询删除
+
+export function delRequire(data) {
+  return request({
+    url: "/require/deleteById",
+    method: "post",
+    data: data,
+  });
+}

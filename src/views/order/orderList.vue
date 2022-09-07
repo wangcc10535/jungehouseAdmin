@@ -35,8 +35,8 @@
           <el-table-column prop="address" label="位置" align="center"></el-table-column>
           <el-table-column  label="价格" align="center">
             <template slot-scope="{row}">
-              <span>最少：{{row.lastPrice}}</span>
-              <span>最间：{{row.roomPrice}}</span>
+              <span>总价：{{row.lastPrice}}</span>
+              <span>首付：{{row.roomPrice}}</span>
               <span>贷款{{row.loans}}</span>
             </template>
           </el-table-column>
@@ -44,12 +44,20 @@
           <el-table-column prop="actualArea" label="实际面积" align="center"></el-table-column>
           <el-table-column prop="roomNum" label="房间" align="center"></el-table-column>
           <el-table-column prop="option" label="选项信息" align="center"></el-table-column>
-          <el-table-column prop="marketingLabel" label="促销标签" align="center"></el-table-column>
-          <el-table-column prop="titleLabel" label="标题促销" align="center"></el-table-column>
+          <el-table-column prop="marketingLabel" label="促销标签" align="center">
+            <template slot-scope="{row}">
+              <span>{{selectDictLabel(dict.type.promotion_type,row.marketingLabel)}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="titleLabel" label="标题促销" align="center">
+            <template slot-scope="{row}">
+              <span>{{selectDictLabels(dict.type.title_type,row.titleLabel)}}</span>
+            </template>
+          </el-table-column>
           <el-table-column prop="planName" label="图片" align="center">
             <template slot-scope="{row}">
-              <div class="rowImg">
-                <img v-for="(item,index) in row.roomImages" :key="index" :src="item.image" alt="">
+              <div class="rowImg" v-viewer>
+                <img :src="row.image" alt="">
               </div>
             </template>
           </el-table-column>
@@ -108,7 +116,7 @@ export default {
   components: {
     addOrEdit,
   },
-  dicts: ['house_status'],
+  dicts: ['house_status','promotion_type','title_type'],
   data() {
     return {
       searchFrom: {},
@@ -163,4 +171,14 @@ export default {
 </script>
 
 <style  lang='scss' scoped>
+  .rowImg {
+    width: 40px;
+    height: 50px;
+    img {
+      width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    }
+  }
 </style>

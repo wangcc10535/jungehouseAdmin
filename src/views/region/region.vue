@@ -108,7 +108,7 @@ export default {
     // 修改
     edit(item) {
       this.diaitle = "修改地区";
-      this.$refs.addialog.openVisible();
+      this.$refs.addialog.openVisible(item);
     },
     // 删除
     compDelete(item) {

@@ -1,6 +1,6 @@
 import request from "@/utils/request";
 
-// 新增banner
+// 新增合作企业
 export function addCooperation(data) {
     return request({
       url: "/system/dict/data",
@@ -8,14 +8,14 @@ export function addCooperation(data) {
       data: data,
     });
   }
-// 获取banner
+// 获取
 export function getCooperation() {
   return request({
     url: "/system/dict/data/type/cooperation",
     method: "get"
   });
 }
-// 删除banner
+// 删除合作企业
 export function delCooperation(data) {
   return request({
     url: "/system/dict/data/"+data,

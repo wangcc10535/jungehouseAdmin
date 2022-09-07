@@ -375,6 +375,9 @@
               >
             </div>
           </el-form-item>
+          <el-form-item label="封面图片：">
+            <image-upload :limit="1" @input="titleImg"></image-upload>
+          </el-form-item>
           <el-form-item label="房屋图片：">
             <image-upload :limit="20" @input="fileList"></image-upload>
           </el-form-item>
@@ -599,6 +602,10 @@ export default {
         this.addorputForm.roomImages.push(imgData);
       });
       console.log(this.addorputForm.roomImages);
+    },
+    // 获取封面地址
+    titleImg(imig) {
+      this.addorputForm.image = imig;
     },
     // 获取经纪人列表
     getmiddleman() {

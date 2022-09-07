@@ -16,7 +16,7 @@
         >
           <el-form-item label="地区名称：">
             <el-input
-              v-model="addorputForm.regionName"
+              v-model="addorputForm.dictLabel"
               size="medium"
               placeholder="输入地区名称"
               autocomplete="off"
@@ -41,7 +41,7 @@
   </template>
   
   <script>
-  import {addRegion} from "@/api/region";
+  import {addRegion,editRegion} from "@/api/region";
   
   export default {
     props: {
@@ -50,8 +50,7 @@
     data() {
       return {
         addorputVisible: false,
-        addorputForm: {
-        },
+        addorputForm: {},
         rules: {}
       };
     },
@@ -61,29 +60,40 @@
       },
       dialogFormSubmit() {
         console.log(this.addorputForm);
-  
         var  version ={
           "dictType":"region",
-          "dictLabel": this.addorputForm.regionName,
-          "dictValue":this.addorputForm.image
+          "dictLabel": this.addorputForm.dictLabel,
+          "dictValue":this.addorputForm.dictValue
         }
-  
-        addRegion(version).then((res) => {
+        console.log(this.addorputForm.dictCode);
+        if(!this.addorputForm.dictCode) {
+          addRegion(version).then((res) => {
           console.log(res)
-  
           if (res.code == 200) {
             this.$message.success("新增成功！");
             this.handleClose();
             this.$parent.getList()
           }
         });
+        }else{
+          editRegion({...version,dictCode:this.addorputForm.dictCode}).then( res =>{
+            this.$message.success("修改成功！");
+            this.handleClose();
+            this.$parent.getList()
+          })
+        }
+        
       },
-      openVisible() {
+      openVisible(obj) {
         this.addorputForm = {};
         this.addorputVisible = true;
+        if(obj) {
+          console.log(obj);
+          this.addorputForm = obj;
+        }
       },
       fileList(img) {
-        this.addorputForm.image = img
+        this.addorputForm.dictValue = img
         console.log(img);
       },
     },

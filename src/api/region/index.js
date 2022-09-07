@@ -8,6 +8,14 @@ export function addRegion(data) {
       data: data,
     });
   }
+  // 修改地区
+export function editRegion(data) {
+  return request({
+    url: "/system/dict/data",
+    method: "put",
+    data: data,
+  });
+}
 // 获取地区
 export function getRegion() {
   return request({
