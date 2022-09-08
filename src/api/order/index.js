@@ -73,3 +73,12 @@ export function delRequire(data) {
     data: data,
   });
 }
+
+// 查询地址区域
+export function applaudDetail(data) {
+  return request({
+    url: "/applaud/selectById",
+    method: "post",
+    data: data
+  });
+}

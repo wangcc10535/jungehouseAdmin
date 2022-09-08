@@ -99,11 +99,50 @@
             ></el-input>
           </el-form-item>
           <el-form-item label="所在城市：" prop="city">
-            <el-input
-              v-model="addorputForm.city"
-              placeholder="输入所在城市"
-              autocomplete="off"
-            ></el-input>
+            <el-select
+            v-model="searchFrom.city"
+            v-if="currentClass == 0"
+            @change="cityChange('1', $event)"
+            class="search-select"
+            placeholder="选择城市"
+          >
+            <el-option
+              v-for="item in cityOptions"
+              :key="item.code"
+              :label="item.name"
+              :value="item.name"
+            >
+            </el-option>
+          </el-select>
+          <el-select
+            v-model="searchFrom.county"
+            v-if="currentClass == 0"
+            @change="cityChange('2', $event)"
+            class="search-select"
+            placeholder="-"
+          >
+            <el-option
+              v-for="item in countyOptions"
+              :key="item.code"
+              :label="item.name"
+              :value="item.name"
+            >
+            </el-option>
+          </el-select>
+          <el-select
+            v-model="searchFrom.street"
+            v-if="currentClass == 0"
+            class="search-select"
+            placeholder="-"
+          >
+            <el-option
+              v-for="item in streetOptions"
+              :key="item.code"
+              :label="item.name"
+              :value="item.name"
+            >
+            </el-option>
+          </el-select>
           </el-form-item>
           <el-form-item label="地点信息：" prop="address">
             <el-input
@@ -227,7 +266,8 @@
               size="medium"
               multiple
               style="width: 100%; margin-right: 10px"
-              placeholder="请选择交易类型"
+              placeholder="请选择交易类型"  
+               
             >
               <el-option
                 v-for="(item, index) in dict.type.transaction_type"
@@ -456,7 +496,7 @@ import naverMap from "./naverMap.vue";
 import FileUpload from "../../../components/FileUpload/index.vue";
 import ImageUpload from "../../../components/ImageUpload/index.vue";
 import { listmiddleman } from "@/api/agent/index";
-import { addRoom, updateRoom } from "@/api/order/index";
+import { addRoom, updateRoom,applaudDetail } from "@/api/order/index";
 export default {
   name: "addOrEdit",
   props: {
@@ -501,10 +541,16 @@ export default {
       editorOption: {},
       peripheryData: {},
       agentOption: [],
+      pid: '0',
+      countyOptions: [],
+      streetOptions: [],
+      cityOptions: [],
+      searchFrom: {}
     };
   },
   created() {
     this.getmiddleman();
+    this.getCity()
   },
   methods: {
     //打开弹窗
@@ -520,6 +566,33 @@ export default {
       this.addorputVisible = false;
       this.$parent.getList();
     },
+    // 获取城市
+    getCity(index,e) {
+      console.log(e);
+      if (index == 1) {
+        this.pid = e.value;
+      } else if (index == 2) {
+        this.pid = e.value;
+      } else {
+        this.pid = '0';
+      }
+      address({ pid: this.pid }).then((res) => {
+        console.log(res);
+        if (index == 1) {
+          this.countyOptions = res.rows;
+        } else if (index == 2) {
+          this.streetOptions = res.rows;
+        } else {
+          this.cityOptions = res.rows;
+        }
+      });
+    },
+    // 选择城市
+    cityChange(index, e) {
+      console.log(index);
+      console.log(e);
+      this.getCity(index,e);
+    },
     // 添加房产信息
     dialogFormSubmit() {
       this.addorputForm.option = this.checkboxGroup.toString();
@@ -529,6 +602,7 @@ export default {
         this.addorputForm.marketingLabel.toString();
       this.addorputForm.titleLabel = this.addorputForm.titleLabel.toString();
       this.addorputForm.tradeType = this.addorputForm.tradeType.toString();
+      this.addorputForm.city = this.searchFrom.city+ ',' + this.searchFrom.county + ','+ this.searchFrom.street
       console.log(this.addorputForm);
       addRoom({ ...this.addorputForm }).then((res) => {
         if (res.code == 200) {
