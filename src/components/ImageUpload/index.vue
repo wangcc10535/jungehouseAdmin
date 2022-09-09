@@ -170,7 +170,7 @@ export default {
     // 上传成功回调
     handleUploadSuccess(res, file) {
       if (res.code === 200) {
-        this.uploadList.push({ name: res.fileName, url: res.url });
+        this.uploadList.push({ name: res.fileName, url: process.env.VUE_APP_BASE_API + res.fileName });
         this.uploadedSuccessfully();
       } else {
         this.number--;
@@ -197,7 +197,6 @@ export default {
     uploadedSuccessfully() {
       if (this.number > 0 && this.uploadList.length === this.number) {
         this.fileList = this.fileList.concat(this.uploadList);
-        // console.log(this.fileList);
         this.uploadList = [];
         this.number = 0;
         this.$emit("input", this.listToString(this.fileList));
