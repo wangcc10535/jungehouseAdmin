@@ -97,7 +97,7 @@ export default {
         })
         this.fileArr = images
         this.rowId = obj.id;
-        console.log(this.addorputForm);
+        // console.log(this.addorputForm);
       }
     },
     handleClose() {
@@ -108,7 +108,7 @@ export default {
       this.addorputForm.image = item;
     },
     dialogFormSubmit() {
-      console.log(this.addorputForm);
+      // console.log(this.addorputForm);
       this.$refs["addorputForm"].validate((valid) => {
         if (valid) {
           if (!this.addorputForm.image) {
@@ -131,7 +131,7 @@ export default {
             });
           }
         } else {
-          console.log("error submit!!");
+          // console.log("error submit!!");
           return false;
         }
       });

@@ -67,7 +67,7 @@ export default {
       let _this = this;
       let latlngS = null;
       if (_this.setLngLat[0] && _this.setLngLat[1]) {
-        console.log(_this.setLngLat);
+        // console.log(_this.setLngLat);
         latlngS = new naver.maps.LatLng(_this.setLngLat[0], _this.setLngLat[1])
       }else {
         latlngS = new naver.maps.LatLng(37.3595704, 127.105399)
@@ -114,8 +114,8 @@ export default {
           ].join(","),
         },
         function (status, response) {
-          console.log(status);
-          console.log(response);
+          // console.log(status);
+          // console.log(response);
           if (status === naver.maps.Service.Status.ERROR) {
             if (!lngLat) {
               return alert("ReverseGeocode Error, Please check latlng");
@@ -127,7 +127,7 @@ export default {
       );
     },
     setAddress(address) {
-      console.log(address);
+      // console.log(address);
       this.mapSearch = address.jibunAddress;
       this.address = address.jibunAddress
     },
@@ -138,8 +138,8 @@ export default {
           query: _this.mapSearch,
         },
         function (status, response) {
-          console.log(status);
-          console.log(response);
+          // console.log(status);
+          // console.log(response);
           // let latlng = new naver.maps.LatLng(e.coord._lat, e.coord._lng);
         }
       );

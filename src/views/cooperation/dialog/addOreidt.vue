@@ -60,7 +60,7 @@
         this.addorputVisible = false;
       },
       dialogFormSubmit() {
-        console.log(this.addorputForm);
+        // console.log(this.addorputForm);
   
         var  version ={
           "dictType":"cooperation",
@@ -69,7 +69,7 @@
         }
   
         addCooperation(version).then((res) => {
-          console.log(res)
+          // console.log(res)
   
           if (res.code == 200) {
             this.$message.success("新增成功！");
@@ -84,7 +84,7 @@
       },
       fileList(img) {
         this.addorputForm.image = img
-        console.log(img);
+        // console.log(img);
       },
     },
   };

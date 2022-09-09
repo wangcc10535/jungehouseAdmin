@@ -154,7 +154,7 @@ export default {
       this.dataFrom = {
         name: '123'
       }
-      // console.log();
+      // // console.log();
     },
     delRow(row) {
       deleteRoom({id:row.id}).then( res =>{

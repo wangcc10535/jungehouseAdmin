@@ -127,7 +127,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.fileListArr);
+    // console.log(this.fileListArr);
   },
   methods: {
     // 上传前loading加载
@@ -197,7 +197,7 @@ export default {
     uploadedSuccessfully() {
       if (this.number > 0 && this.uploadList.length === this.number) {
         this.fileList = this.fileList.concat(this.uploadList);
-        console.log(this.fileList);
+        // console.log(this.fileList);
         this.uploadList = [];
         this.number = 0;
         this.$emit("input", this.listToString(this.fileList));

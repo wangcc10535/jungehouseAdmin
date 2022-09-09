@@ -49,7 +49,7 @@ export default {
         dictValue: this.addorputForm.toString(),
         dictCode: this.aboutBody.dictCode
       };
-      console.log(version);
+      // console.log(version);
       editStatement(version).then((res) => {
         if (res.code == 200) {
           this.$message.success("修改成功！");
@@ -64,7 +64,7 @@ export default {
         dictValue: this.addorputForm,
       };
       addStatement(version).then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.code == 200) {
           this.$message.success("新增成功！");
           this.getList();
@@ -76,7 +76,7 @@ export default {
         if (res.code == 200) {
           this.aboutBody = res.data[0];
           this.addorputForm = this.aboutBody.dictValue
-          console.log(this.aboutBody);
+          // console.log(this.aboutBody);
         }
       });
     }

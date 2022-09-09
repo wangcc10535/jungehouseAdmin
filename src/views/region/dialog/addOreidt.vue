@@ -59,16 +59,16 @@
         this.addorputVisible = false;
       },
       dialogFormSubmit() {
-        console.log(this.addorputForm);
+        // console.log(this.addorputForm);
         var  version ={
           "dictType":"region",
           "dictLabel": this.addorputForm.dictLabel,
           "dictValue":this.addorputForm.dictValue
         }
-        console.log(this.addorputForm.dictCode);
+        // console.log(this.addorputForm.dictCode);
         if(!this.addorputForm.dictCode) {
           addRegion(version).then((res) => {
-          console.log(res)
+          // console.log(res)
           if (res.code == 200) {
             this.$message.success("新增成功！");
             this.handleClose();
@@ -88,13 +88,13 @@
         this.addorputForm = {};
         this.addorputVisible = true;
         if(obj) {
-          console.log(obj);
+          // console.log(obj);
           this.addorputForm = obj;
         }
       },
       fileList(img) {
         this.addorputForm.dictValue = img
-        console.log(img);
+        // console.log(img);
       },
     },
   };

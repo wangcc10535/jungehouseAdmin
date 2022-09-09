@@ -121,7 +121,7 @@ export default {
     },
     // 删除
     compDelete(item) {
-      console.log(item)
+      // console.log(item)
       delApplaud({id:item.id}).then((res) => {
         if (res.code == 200) {
           this.$message.success("删除成功！");

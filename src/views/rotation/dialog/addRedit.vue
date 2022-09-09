@@ -61,7 +61,7 @@ export default {
       this.addorputVisible = false;
     },
     dialogFormSubmit() {
-      console.log(this.addorputForm);
+      // console.log(this.addorputForm);
 
       var  version ={
         "dictType":"banner",
@@ -70,7 +70,7 @@ export default {
       }
 
       addBanner(version).then((res) => {
-        console.log(res)
+        // console.log(res)
 
         if (res.code == 200) {
           this.$message.success("新增成功！");
@@ -85,7 +85,7 @@ export default {
     },
     fileList(img) {
       this.addorputForm.image = img
-      console.log(img);
+      // console.log(img);
     },
   },
 };

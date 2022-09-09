@@ -64,16 +64,26 @@
         this.addorputVisible = false;
       },
       dialogFormSubmit() {
-        console.log(this.addorputForm);
-        addApplaud({...this.addorputForm}).then((res) => {
-          console.log(res)
-  
+        // console.log(this.addorputForm);
+        if(this.addorputForm.id) {
+          editApplaud({...this.addorputForm}).then((res) => {
+          if (res.code == 200) {
+            this.$message.success("修改成功！");
+            this.handleClose();
+            this.$parent.getList()
+          }
+        });
+        }else{
+          addApplaud({...this.addorputForm}).then((res) => {
           if (res.code == 200) {
             this.$message.success("新增成功！");
             this.handleClose();
             this.$parent.getList()
           }
         });
+        }
+       
+
       },
       openVisible(obj) {
         this.addorputForm = {};
@@ -84,7 +94,7 @@
       },
       fileList(img) {
         this.addorputForm.image = img
-        console.log(img);
+        // console.log(img);
       },
     },
   };

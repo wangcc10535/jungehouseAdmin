@@ -75,11 +75,11 @@ export default {
       this.$parent.getList();
     },
     dialogFormSubmit() {
-      console.log(this.addorputForm);
+      // console.log(this.addorputForm);
       this.$refs["addorputForm"].validate((valid) => {
         if (valid) {
           if (this.rowId) {
-            console.log("xiugai");
+            // console.log("xiugai");
             editFaq(this.addorputForm).then((res) => {
               if (res.code == 200) {
                 this.$message.success("修改成功！");
@@ -87,7 +87,7 @@ export default {
               }
             });
           } else {
-            console.log("xinzneng");
+            // console.log("xinzneng");
             addFaq(this.addorputForm).then((res) => {
               if (res.code == 200) {
                 this.$message.success("新增成功！");
@@ -96,7 +96,7 @@ export default {
             });
           }
         } else {
-          console.log("error submit!!");
+          // console.log("error submit!!");
           return false;
         }
       });

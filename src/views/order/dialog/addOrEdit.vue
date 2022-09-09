@@ -552,7 +552,7 @@ export default {
   methods: {
     //打开弹窗
     openDialogEven() {
-      console.log(this.addorputForm);
+      // console.log(this.addorputForm);
       this.addorputVisible = true;
       if (!this.addorputForm) {
         this.lngLatList = [];
@@ -565,7 +565,7 @@ export default {
     },
     // 获取城市
     getCity(index,e) {
-      console.log(e);
+      // console.log(e);
       if (index == 1) {
         this.pid = e.value;
       } else if (index == 2) {
@@ -574,7 +574,7 @@ export default {
         this.pid = '0';
       }
       addressList({ pid: this.pid }).then((res) => {
-        console.log(res);
+        // console.log(res);
         if (index == 1) {
           this.countyOptions = res.rows;
         } else if (index == 2) {
@@ -586,8 +586,8 @@ export default {
     },
     // 选择城市
     cityChange(index, e) {
-      console.log(index);
-      console.log(e);
+      // console.log(index);
+      // console.log(e);
       this.getCity(index,e);
     },
     // 添加房产信息
@@ -600,7 +600,7 @@ export default {
       this.addorputForm.titleLabel = this.addorputForm.titleLabel.toString();
       this.addorputForm.tradeType = this.addorputForm.tradeType.toString();
       this.addorputForm.city = this.searchFrom.city.valeu+ ',' + this.searchFrom.county.valeu + ','+ this.searchFrom.street.valeu
-      console.log(this.addorputForm);
+      // console.log(this.addorputForm);
       addRoom({ ...this.addorputForm }).then((res) => {
         if (res.code == 200) {
           this.$message.success("新增成功！");
@@ -617,7 +617,7 @@ export default {
     },
     // 关闭地图弹窗
     clickClose(data) {
-      console.log(data);
+      // console.log(data);
       if (data && data.selType == "address") {
         this.addorputForm.lon = data.lng;
         this.addorputForm.lat = data.lat;
@@ -629,7 +629,7 @@ export default {
           lat: data.lat,
           peripheryAddress: data.address,
         });
-        console.log(this.peripheryList);
+        // console.log(this.peripheryList);
       }
       this.mapVisible = false;
     },
@@ -672,7 +672,7 @@ export default {
         imgData.image = item;
         this.addorputForm.roomImages.push(imgData);
       });
-      console.log(this.addorputForm.roomImages);
+      // console.log(this.addorputForm.roomImages);
     },
     // 获取封面地址
     titleImg(imig) {
