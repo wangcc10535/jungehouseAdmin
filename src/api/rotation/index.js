@@ -22,3 +22,12 @@ export function delBanner(data) {
     method: "delete"
   });
 }
+
+// 删除banner
+export function EditBanner(data) {
+  return request({
+    url: "/system/dict/data",
+    method: "put",
+    data: data,
+  });
+}

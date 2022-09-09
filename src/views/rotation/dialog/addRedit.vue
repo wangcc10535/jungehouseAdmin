@@ -16,7 +16,7 @@
       >
         <el-form-item label="序号：">
           <el-input
-            v-model="addorputForm.newsTitle"
+            v-model="addorputForm.dictLabel"
             size="medium"
             placeholder="输入序号"
             autocomplete="off"
@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import {addFaq} from "@/api/question";
-import {addBanner} from "@/api/rotation";
+import { addFaq } from "@/api/question";
+import { addBanner, EditBanner } from "@/api/rotation";
 
 export default {
   props: {
@@ -51,9 +51,8 @@ export default {
   data() {
     return {
       addorputVisible: false,
-      addorputForm: {
-      },
-      rules: {}
+      addorputForm: {},
+      rules: {},
     };
   },
   methods: {
@@ -63,29 +62,44 @@ export default {
     dialogFormSubmit() {
       // console.log(this.addorputForm);
 
-      var  version ={
-        "dictType":"banner",
-        "dictLabel": this.addorputForm.newsTitle,
-        "dictValue":this.addorputForm.image
+      var version = {
+        dictType: "banner",
+        dictLabel: this.addorputForm.dictLabel,
+        dictValue: this.addorputForm.dictValue,
+      };
+      if (this.addorputForm.dictCode) {
+        EditBanner({ ...version, dictCode: this.addorputForm.dictCode }).then(
+          (res) => {
+            if (res.code == 200) {
+              this.$message.success("修改成功！");
+              this.handleClose();
+              this.$parent.getList();
+            }
+          }
+        );
+      } else {
+        addBanner(version).then((res) => {
+          // console.log(res)
+
+          if (res.code == 200) {
+            this.$message.success("新增成功！");
+            this.handleClose();
+            this.$parent.getList();
+          }
+        });
       }
-
-      addBanner(version).then((res) => {
-        // console.log(res)
-
-        if (res.code == 200) {
-          this.$message.success("新增成功！");
-          this.handleClose();
-          this.$parent.getList()
-        }
-      });
     },
-    openVisible() {
+    openVisible(Object) {
       this.addorputForm = {};
       this.addorputVisible = true;
+      if (Object) {
+        // console.log(obj);
+        this.addorputForm = Object;
+      }
     },
     fileList(img) {
-      this.addorputForm.image = img
-      // console.log(img);
+      this.addorputForm.dictValue = img;
+      console.log(img);
     },
   },
 };

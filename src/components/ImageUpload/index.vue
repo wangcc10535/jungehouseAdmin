@@ -170,7 +170,7 @@ export default {
     // 上传成功回调
     handleUploadSuccess(res, file) {
       if (res.code === 200) {
-        this.uploadList.push({ name: res.fileName, url: process.env.VUE_APP_BASE_API + res.fileName });
+        this.uploadList.push({ name: res.fileName, url: this.baseUrl + res.fileName });
         this.uploadedSuccessfully();
       } else {
         this.number--;
@@ -213,8 +213,12 @@ export default {
       let strs = "";
       separator = separator || ",";
       for (let i in list) {
+       
         if (list[i].url) {
-          strs += list[i].url.replace(this.baseUrl, "") + separator;
+          console.log(list[i].url);
+          console.log(list[i].url + separator);
+          // strs += list[i].url.replace(this.baseUrl, '') + separator;
+          strs += list[i].url + separator;
         }
       }
       return strs != "" ? strs.substr(0, strs.length - 1) : "";
