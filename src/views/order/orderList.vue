@@ -68,7 +68,7 @@
           </el-table-column>
           <el-table-column label="操作" align="center" fixed="right">
             <template slot-scope="{row}">
-              <el-button
+              <!-- <el-button
                 type="success"
                 size="small"
                 class="link-m"
@@ -80,13 +80,13 @@
                 size="small"
                 class="link-m"
                 @click="editRowPlan(row)"
-              >编辑</el-button>
+              >编辑</el-button> -->
               <el-popconfirm
                 confirm-button-text="是的"
                 cancel-button-text="不用了"
                 @confirm="delRow(row)"
                 title="确定删除吗？"
-              >
+              > 
                 <el-button type="danger" size="small" class="link-m" slot="reference">删除</el-button>
               </el-popconfirm>
             </template>
