@@ -101,7 +101,6 @@
           <el-form-item label="所在城市：" prop="city">
             <el-select
             v-model="searchFrom.city"
-            v-if="currentClass == 0"
             @change="cityChange('1', $event)"
             class="search-select"
             placeholder="选择城市"
@@ -110,13 +109,12 @@
               v-for="item in cityOptions"
               :key="item.code"
               :label="item.name"
-              :value="item.name"
+              :value="{label:item.name,value:item.code}"
             >
             </el-option>
           </el-select>
           <el-select
             v-model="searchFrom.county"
-            v-if="currentClass == 0"
             @change="cityChange('2', $event)"
             class="search-select"
             placeholder="-"
@@ -125,13 +123,12 @@
               v-for="item in countyOptions"
               :key="item.code"
               :label="item.name"
-              :value="item.name"
+              :value="{label:item.name,value:item.code}"
             >
             </el-option>
           </el-select>
           <el-select
             v-model="searchFrom.street"
-            v-if="currentClass == 0"
             class="search-select"
             placeholder="-"
           >
@@ -139,7 +136,7 @@
               v-for="item in streetOptions"
               :key="item.code"
               :label="item.name"
-              :value="item.name"
+              :value="{label:item.name,value:item.code}"
             >
             </el-option>
           </el-select>
@@ -496,7 +493,7 @@ import naverMap from "./naverMap.vue";
 import FileUpload from "../../../components/FileUpload/index.vue";
 import ImageUpload from "../../../components/ImageUpload/index.vue";
 import { listmiddleman } from "@/api/agent/index";
-import { addRoom, updateRoom,applaudDetail } from "@/api/order/index";
+import { addRoom, updateRoom,addressList } from "@/api/order/index";
 export default {
   name: "addOrEdit",
   props: {
@@ -576,7 +573,7 @@ export default {
       } else {
         this.pid = '0';
       }
-      address({ pid: this.pid }).then((res) => {
+      addressList({ pid: this.pid }).then((res) => {
         console.log(res);
         if (index == 1) {
           this.countyOptions = res.rows;
@@ -602,7 +599,7 @@ export default {
         this.addorputForm.marketingLabel.toString();
       this.addorputForm.titleLabel = this.addorputForm.titleLabel.toString();
       this.addorputForm.tradeType = this.addorputForm.tradeType.toString();
-      this.addorputForm.city = this.searchFrom.city+ ',' + this.searchFrom.county + ','+ this.searchFrom.street
+      this.addorputForm.city = this.searchFrom.city.valeu+ ',' + this.searchFrom.county.valeu + ','+ this.searchFrom.street.valeu
       console.log(this.addorputForm);
       addRoom({ ...this.addorputForm }).then((res) => {
         if (res.code == 200) {

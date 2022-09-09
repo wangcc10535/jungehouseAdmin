@@ -75,9 +75,27 @@ export function delRequire(data) {
 }
 
 // 查询地址区域
-export function applaudDetail(data) {
+export function addressList(data) {
   return request({
-    url: "/applaud/selectById",
+    url: "/address/selectList",
+    method: "post",
+    data: data
+  });
+}
+
+// 查询用户咨询
+export function requireList(data) {
+  return request({
+    url: "/require/selectList",
+    method: "post",
+    data: data
+  });
+}
+
+// 删除用户咨询
+export function requireDel(data) {
+  return request({
+    url: "/require/deleteById",
     method: "post",
     data: data
   });
