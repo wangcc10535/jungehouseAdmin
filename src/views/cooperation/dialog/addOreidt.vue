@@ -16,7 +16,7 @@
         >
           <el-form-item label="企业链接：">
             <el-input
-              v-model="addorputForm.url"
+              v-model="addorputForm.dictLabel"
               size="medium"
               placeholder="输入企业链接"
               autocomplete="off"
@@ -42,7 +42,7 @@
   </template>
   
   <script>
-  import {addCooperation} from "@/api/cooperation";
+  import {addCooperation,EditCooperation} from "@/api/cooperation";
   
   export default {
     props: {
@@ -65,11 +65,21 @@
   
         var  version ={
           "dictType":"cooperation",
-          "dictLabel": this.addorputForm.url,
-          "dictValue":this.addorputForm.image
+          "dictLabel": this.addorputForm.dictLabel,
+          "dictValue":this.addorputForm.dictValue
         }
-  
-        addCooperation(version).then((res) => {
+        if (this.addorputForm.dictCode) {
+          EditCooperation({ ...version, dictCode: this.addorputForm.dictCode }).then(
+          (res) => {
+            if (res.code == 200) {
+              this.$message.success("修改成功！");
+              this.handleClose();
+              this.$parent.getList();
+            }
+          }
+        );
+        }else{
+          addCooperation(version).then((res) => {
           // console.log(res)
   
           if (res.code == 200) {
@@ -78,13 +88,19 @@
             this.$parent.getList()
           }
         });
+        }
+       
       },
-      openVisible() {
+      openVisible(obj) {
         this.addorputForm = {};
         this.addorputVisible = true;
+        if (obj) {
+        // console.log(obj);
+        this.addorputForm = obj;
+      }
       },
       fileList(img) {
-        this.addorputForm.image = img
+        this.addorputForm.dictValue = img
         // console.log(img);
       },
     },

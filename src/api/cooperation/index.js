@@ -22,3 +22,11 @@ export function delCooperation(data) {
     method: "delete"
   });
 }
+
+export function EditCooperation(data) {
+  return request({
+    url: "/system/dict/data",
+    method: "put",
+    data: data,
+  });
+}
