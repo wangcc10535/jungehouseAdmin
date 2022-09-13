@@ -12,10 +12,7 @@
     <div class="map-Box">
       <div id="map">
         <div class="search-map">
-          <el-input
-            v-model="mapSearch"
-            placeholder="请输入内容"
-          ></el-input>
+          <el-input v-model="mapSearch" placeholder="请输入内容"></el-input>
           <el-button size="mini" style="margin-left: 10px" @click="searchSub"
             >주소 검색</el-button
           >
@@ -27,7 +24,8 @@
         class="btn submit"
         :disabled="lng == '' || lat == '' ? true : false"
         @click="clickSureMap()"
-      >确定</el-button>
+        >确定</el-button
+      >
       <el-button class="btn reset" @click="clickCancleMap()">取消</el-button>
     </div>
   </div>
@@ -43,9 +41,8 @@ export default {
     },
     setLngLat: {
       type: Array,
-      default: []
-    }
-
+      default: [],
+    },
   },
   data() {
     return {
@@ -53,10 +50,10 @@ export default {
       map: null,
       mapVisible: false,
       infoWindow: null,
-      mapSearch: '',
-      lng: '',
-      lat: '',
-      address: '',
+      mapSearch: "",
+      lng: "",
+      lat: "",
+      address: "",
     };
   },
   mounted() {
@@ -67,10 +64,10 @@ export default {
       let _this = this;
       let latlngS = null;
       if (_this.setLngLat[0] && _this.setLngLat[1]) {
-        // console.log(_this.setLngLat);
-        latlngS = new naver.maps.LatLng(_this.setLngLat[0], _this.setLngLat[1])
-      }else {
-        latlngS = new naver.maps.LatLng(37.3595704, 127.105399)
+        console.log(_this.setLngLat);
+        latlngS = new naver.maps.LatLng(_this.setLngLat[0], _this.setLngLat[1]);
+      } else {
+        latlngS = new naver.maps.LatLng(37.3595704, 127.105399);
       }
       var mapOptions = {
         center: latlngS,
@@ -79,10 +76,10 @@ export default {
       };
       _this.map = new naver.maps.Map("map", mapOptions);
       _this.marker = new naver.maps.Marker({
-          position: latlngS,
-          draggable: false,
-          map: _this.map,
-        });
+        position: latlngS,
+        draggable: false,
+        map: _this.map,
+      });
       _this.infoWindow = new naver.maps.InfoWindow({
         anchorSkew: true,
       });
@@ -122,17 +119,20 @@ export default {
             }
           }
           let address = response.v2.address;
-          _this.setAddress(address)
+          _this.setAddress(address);
         }
       );
     },
     setAddress(address) {
       // console.log(address);
       this.mapSearch = address.jibunAddress;
-      this.address = address.jibunAddress
+      this.address = address.jibunAddress;
     },
     searchSub() {
       let _this = this;
+      if (_this.marker) {
+        _this.marker.setMap(null);
+      }
       naver.maps.Service.geocode(
         {
           query: _this.mapSearch,
@@ -140,21 +140,32 @@ export default {
         function (status, response) {
           // console.log(status);
           // console.log(response);
-          // let latlng = new naver.maps.LatLng(e.coord._lat, e.coord._lng);
+          let addressData = response.v2.addresses[0];
+          _this.lng = addressData.x;
+          _this.lat = addressData.y;
+          let latlng = new naver.maps.LatLng(addressData.y, addressData.x);
+          let center = new naver.maps.Point(addressData.x, addressData.y);
+          _this.map.setCenter(center);
+          _this.address = addressData.roadAddress;
+          _this.marker = new naver.maps.Marker({
+            position: latlng,
+            draggable: false,
+            map: _this.map,
+          });
         }
       );
     },
     clickSureMap() {
-      this.$emit('clickClose', {
+      this.$emit("clickClose", {
         lng: this.lng,
         lat: this.lat,
         address: this.address,
-        selType: this.selType
+        selType: this.selType,
       });
     },
     clickCancleMap() {
-      this.$emit('clickClose');
-    }
+      this.$emit("clickClose");
+    },
   },
 };
 </script>
@@ -196,7 +207,7 @@ export default {
 }
 ::v-deep .el-vue-search-box-container {
   position: relative;
-   width: 100%;
+  width: 100%;
   height: 40px;
   background: #fff;
   box-shadow: 0 2px 2px rgb(0 0 0 / 15%);

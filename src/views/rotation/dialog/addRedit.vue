@@ -27,6 +27,7 @@
             ref="imgUpload"
             :limit="1"
             @input="fileList"
+            :value="addorputForm.dictValue"
           ></image-upload>
         </el-form-item>
       </el-form>

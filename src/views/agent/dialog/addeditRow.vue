@@ -47,7 +47,7 @@
           ></el-input>
         </el-form-item>
         <el-form-item label="头像：">
-          <image-upload :limit="1"  @input="fileList"></image-upload>
+          <image-upload :limit="1"  @input="fileList" :value="addorputForm.headerImg"></image-upload>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

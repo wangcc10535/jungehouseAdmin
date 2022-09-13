@@ -66,13 +66,12 @@
               <span>{{selectDictLabel(dict.type.house_status,row.status)}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center" fixed="right">
+          <el-table-column label="操作" align="center" fixed="right" width="260">
             <template slot-scope="{row}">
-              <!-- <el-button
+              <el-button
                 type="success"
                 size="small"
                 class="link-m"
-                v-if="row.planStatus == 1"
                 @click="rowSeeMap(row)"
               >详情</el-button>
               <el-button
@@ -80,7 +79,7 @@
                 size="small"
                 class="link-m"
                 @click="editRowPlan(row)"
-              >编辑</el-button> -->
+              >编辑</el-button>
               <el-popconfirm
                 confirm-button-text="是的"
                 cancel-button-text="不用了"
@@ -103,18 +102,24 @@
         />
       </div>
     </div>
-    <addOrEdit ref="addFrom" :title="dialogTitle" :addorputForm="dataFrom"></addOrEdit>
+    <addOrEdit ref="addFrom" :title="dialogTitle"></addOrEdit>
+    <editRow ref="editFrom" :title="dialogTitle"></editRow>
+    <detail ref="detailFrom" :title="dialogTitle"></detail>
   </div>
 </template>
 
 <script>
 import addOrEdit from './dialog/addOrEdit.vue'
+import editRow from './dialog/editlog.vue'
+import detail from './dialog/detaile.vue'
 import {deleteRoom, searchRoom} from '@/api/order/index'
 // house_status
 export default {
   name: 'orderList',
   components: {
     addOrEdit,
+    editRow,
+    detail
   },
   dicts: ['house_status','promotion_type','title_type'],
   data() {
@@ -147,14 +152,13 @@ export default {
         this.total = res.total
       })
     },
-    rowSeeMap(row) {},
+    rowSeeMap(row) {
+      this.dialogTitle = '详情信息';
+      this.$refs.detailFrom.openDialogEven(row);
+    },
     addOrder() {
       this.dialogTitle = '添加房产信息'
       this.$refs.addFrom.openDialogEven();
-      this.dataFrom = {
-        name: '123'
-      }
-      // // console.log();
     },
     delRow(row) {
       deleteRoom({id:row.id}).then( res =>{
@@ -164,7 +168,7 @@ export default {
     },
     editRowPlan(row) {
       this.dialogTitle = '修改房产信息';
-      this.$refs.addFrom.openDialogEven(row);
+      this.$refs.editFrom.openDialogEven(row);
     }
   }
 };

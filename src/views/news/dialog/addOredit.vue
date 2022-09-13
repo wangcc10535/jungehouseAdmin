@@ -40,7 +40,7 @@
           ></el-input>
         </el-form-item>
         <el-form-item label="封面：">
-          <image-upload ref="imgUpload" :limit="1" @input="fileList" :fileListArr="fileArr"></image-upload>
+          <image-upload ref="imgUpload" :limit="1" @input="fileList" :value="addorputForm.image"></image-upload>
         </el-form-item>
         <el-form-item label="正文：" prop="newsBody">
           <div class="editor-box">

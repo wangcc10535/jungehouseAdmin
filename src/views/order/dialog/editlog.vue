@@ -314,18 +314,18 @@
                 :key="index"
               >
                 <!-- <el-select
-                  v-model="item.city"
-                  size="medium"
-                  style="width: 200px; margin-right: 10px"
-                  placeholder="请选择地铁线路"
-                >
-                  <el-option
-                    v-for="item in cityOptions"
-                    :key="item.id"
-                    :label="item.rangerName"
-                    :value="{ value: item.id, label: item.rangerName }"
-                  ></el-option>
-                </el-select> -->
+                    v-model="item.city"
+                    size="medium"
+                    style="width: 200px; margin-right: 10px"
+                    placeholder="请选择地铁线路"
+                  >
+                    <el-option
+                      v-for="item in cityOptions"
+                      :key="item.id"
+                      :label="item.rangerName"
+                      :value="{ value: item.id, label: item.rangerName }"
+                    ></el-option>
+                  </el-select> -->
                 <el-input
                   class="address-size"
                   size="medium"
@@ -412,10 +412,18 @@
             </div>
           </el-form-item>
           <el-form-item label="封面图片：">
-            <image-upload :limit="1" @input="titleImg"></image-upload>
+            <image-upload
+              :limit="1"
+              @input="titleImg"
+              :value="addorputForm.image"
+            ></image-upload>
           </el-form-item>
           <el-form-item label="房屋图片：">
-            <image-upload :limit="20" @input="fileList"></image-upload>
+            <image-upload
+              :limit="20"
+              @input="fileList"
+              :value="imageFromList"
+            ></image-upload>
           </el-form-item>
           <el-form-item label="绑定经纪人：" prop="middlemanId">
             <el-select
@@ -448,8 +456,8 @@
               inactive-color="#ff4949"
               active-text="上架"
               inactive-text="下架"
-              active-value="1"
-              inactive-value="0"
+              :active-value="1"
+              :inactive-value="0"
             ></el-switch>
           </el-form-item>
           <el-form-item label="详情信息：" prop="item">
@@ -491,7 +499,12 @@ import naverMap from "./naverMap.vue";
 import FileUpload from "../../../components/FileUpload/index.vue";
 import ImageUpload from "../../../components/ImageUpload/index.vue";
 import { listmiddleman } from "@/api/agent/index";
-import { addRoom, updateRoom, addressList } from "@/api/order/index";
+import {
+  addRoom,
+  updateRoom,
+  addressList,
+  selectRoom,
+} from "@/api/order/index";
 export default {
   name: "addOrEdit",
   props: {
@@ -541,6 +554,7 @@ export default {
       streetOptions: [],
       cityOptions: [],
       searchFrom: {},
+      imageFromList: [],
     };
   },
   created() {
@@ -549,12 +563,40 @@ export default {
   },
   methods: {
     //打开弹窗
-    openDialogEven() {
+    openDialogEven(row) {
       // console.log(this.addorputForm);
       this.addorputVisible = true;
-      if (!this.addorputForm) {
-        this.lngLatList = [];
-      }
+      this.gitDetail(row.id);
+    },
+    gitDetail(rowId) {
+      selectRoom({ id: rowId }).then((res) => {
+        if (res.code == 200) {
+          this.addorputForm = res.data;
+          if (this.addorputForm.titleLabel) {
+            this.addorputForm.titleLabel =
+              this.addorputForm.titleLabel.split(",");
+          }
+          if (this.addorputForm.tradeType) {
+            this.addorputForm.tradeType =
+              this.addorputForm.tradeType.split(",");
+          }
+          if (this.addorputForm.option) {
+            this.checkboxGroup = this.addorputForm.option.split(",");
+          }
+          this.addorputForm.middlemanId = parseInt(
+            this.addorputForm.middlemanId
+          );
+          this.imageFromList = [];
+          if (this.addorputForm.roomImages) {
+            this.addorputForm.roomImages.forEach((item) => {
+              this.imageFromList.push(item.image);
+            });
+          }
+
+          this.lngLatList = this.addorputForm.roomSubways;
+          this.peripheryList = this.addorputForm.roomNeighbors;
+        }
+      });
     },
     // 关闭弹窗
     handleClose() {
@@ -590,34 +632,34 @@ export default {
     },
     // 添加房产信息
     dialogFormSubmit() {
-      if (this.checkboxGroup) {
-        this.addorputForm.option = this.checkboxGroup.toString();
-      }
+      this.addorputForm.option = this.checkboxGroup.toString();
       this.addorputForm.roomNeighbors = this.peripheryList;
       this.addorputForm.roomSubways = this.lngLatList;
-      if (this.addorputForm.marketingLabel) {
-        this.addorputForm.marketingLabel =
-          this.addorputForm.marketingLabel.toString();
+      this.addorputForm.marketingLabel =
+        this.addorputForm.marketingLabel.toString();
+      this.addorputForm.titleLabel = this.addorputForm.titleLabel.toString();
+      this.addorputForm.tradeType = this.addorputForm.tradeType.toString();
+      if (
+        !this.searchFrom.city ||
+        !this.searchFrom.county ||
+        !this.searchFrom.street
+      ) {
+        this.$message.error("请选择所在城市（도시를 선택하세요）");
+        return false;
       }
-      if (this.addorputForm.titleLabel) {
-        this.addorputForm.titleLabel = this.addorputForm.titleLabel.toString();
-      }
-      if (this.addorputForm.tradeType) {
-        this.addorputForm.tradeType = this.addorputForm.tradeType.toString();
-      }
-
       this.addorputForm.city =
         this.searchFrom.city.label +
         "," +
         this.searchFrom.county.label +
         "," +
         this.searchFrom.street.label;
-      console.log(this.addorputForm);
-      addRoom({ ...this.addorputForm }).then((res) => {
+      // console.log(this.addorputForm);
+    
+      updateRoom({ ...this.addorputForm }).then((res) => {
         if (res.code == 200) {
           this.$message.success("新增成功！");
           this.handleClose();
-          this.$parent.getList()
+          this.$parent.getList();
         }
       });
     },
@@ -688,17 +730,22 @@ export default {
     },
     // 获取封面地址
     titleImg(imig) {
+      this.addorputForm.image = "";
       this.addorputForm.image = imig;
     },
     // 获取经纪人列表
     getmiddleman() {
       listmiddleman({}).then((res) => {
-        console.log(res.rows);
         this.agentOption = res.rows;
       });
     },
     // 经纪人电话
     agentChange(e) {
+      console.log(e);
+      this.getPhone(e);
+    },
+    getPhone(e) {
+      this.addorputForm.phone = "";
       this.agentOption.forEach((item) => {
         if ((item.id = e)) {
           this.addorputForm.phone = item.phone;
