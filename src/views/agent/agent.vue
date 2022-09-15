@@ -35,7 +35,7 @@
         size="mini"
         icon="el-icon-plus"
         @click="addQuestion"
-        >添加经纪人</el-button
+        >添加经纪人(브로커를 추가하다)</el-button
       >
       <div class="content-table">
         <el-table
@@ -46,19 +46,19 @@
         >
           <el-table-column
             type="index"
-            label="序号"
-            width="50"
+            label="序号(일련 번호)"
+            width="120"
             align="center"
             fixed="left"
           ></el-table-column>
           <el-table-column
             prop="name"
-            label="经纪人姓名"
+            label="经纪人姓名(중개인명)"
             align="center"
             fixed="left"
           ></el-table-column>
           <el-table-column
-            label="头像"
+            label="头像(화신)"
             align="center"
           >
           <template slot-scope="{ row }">
@@ -69,41 +69,40 @@
         </el-table-column>
           <el-table-column
             prop="phone"
-            label="电话"
+            label="电话(전화)"
             align="center"
           ></el-table-column>
           <el-table-column
             prop="talk"
-            label="talk账号"
+            label="talk账号(talk계정)"
             align="center"
           ></el-table-column>
           <el-table-column
             prop="job"
-            label="职位"
+            label="职位(직함)"
             align="center"
           ></el-table-column>
-          <el-table-column label="操作" align="center">
+          <el-table-column label="操作(운영하다)" align="center">
             <template slot-scope="{ row }">
               <el-button
                 @click="edit(row)"
                 size="small"
                 class="link-m"
                 type="warning"
-                >编辑</el-button
+                >编辑(편집하다)</el-button
               >
               <el-popconfirm
-                confirm-button-text="是的"
-                cancel-button-text="不用了"
+                confirm-button-text="是的(예)"
+                cancel-button-text="不用了(필요 없음)"
                 @confirm="compDelete(row)"
-                title="确定删除吗？"
+                title="确定删除吗？(삭제 확인?)"
               >
                 <el-button
                   type="danger"
                   size="small"
                   class="link-m"
-                  slot="reference"
                   v-hasPermi="['personnel:delstaff:configure']"
-                  >删除</el-button
+                  >删除(삭제)</el-button
                 >
               </el-popconfirm>
             </template>
@@ -163,17 +162,17 @@ export default {
       });
     },
     addQuestion() {
-      this.title = "新增问答";
+      this.title = "新增经纪人(브로커 추가)";
       this.$refs.addref.openDialogEven();
     },
     edit(row) {
-      this.title = "修改问答";
+      this.title = "修改经纪人(브로커 편집)";
       this.$refs.addref.openDialogEven(row);
     },
     compDelete(row) {
       delmiddleman({ id: row.id }).then((res) => {
         if (res.code == 200) {
-          this.$message.success("删除成功！");
+          this.$message.success("删除成功！(성공적으로 삭제되었습니다!)");
           this.getList();
         }
       });

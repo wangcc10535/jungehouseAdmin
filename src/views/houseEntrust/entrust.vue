@@ -10,7 +10,7 @@
         >
           <el-table-column
             type="index"
-            label="序号"
+            label="序号(일련 번호)"
             width="50"
             align="center"
             fixed="left"
@@ -56,7 +56,7 @@
             <span>{{selectDictLabel(dict.type.entrust_type,row.type)}}</span>
           </template>
         </el-table-column>
-          <el-table-column label="操作" align="center" width="220">
+          <el-table-column label="操作(운영하다)" align="center" width="220">
             <template slot-scope="{ row }">
               <el-button
                 @click="detail(row)"
@@ -66,18 +66,17 @@
                 >详情</el-button
               >
               <el-popconfirm
-                confirm-button-text="是的"
-                cancel-button-text="不用了"
+                confirm-button-text="是的(예)"
+                cancel-button-text="不用了(필요 없음)"
                 @confirm="compDelete(row)"
-                title="确定删除吗？"
+                title="确定删除吗？(삭제 확인?)"
               >
                 <el-button
                   type="danger"
                   size="small"
                   class="link-m"
-                  slot="reference"
                   v-hasPermi="['personnel:delstaff:configure']"
-                  >删除</el-button
+                  >删除(삭제)</el-button
                 >
               </el-popconfirm>
             </template>
@@ -144,7 +143,7 @@ export default {
     compDelete(row) {
       delQna({ id: row.id }).then((res) => {
         if (res.code == 200) {
-          this.$message.success("删除成功！");
+          this.$message.success("删除成功！(성공적으로 삭제되었습니다!)");
           this.getList();
         }
       });

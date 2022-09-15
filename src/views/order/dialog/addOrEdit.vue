@@ -12,7 +12,7 @@
     <el-dialog
       :title="title"
       :visible.sync="addorputVisible"
-      width="60%"
+      width="80%"
       :destroy-on-close="true"
       :close-on-click-modal="false"
       :before-close="handleClose"
@@ -22,9 +22,9 @@
           :model="addorputForm"
           ref="addorputForm"
           :rules="rules"
-          label-width="120px"
+          label-width="180px"
         >
-          <el-form-item label="房产货号：" prop="homeNum">
+          <el-form-item label="房产货号(부동산 번호)：" prop="homeNum">
             <el-input
               v-model="addorputForm.homeNum"
               size="medium"
@@ -32,18 +32,18 @@
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="标题：" prop="title">
+          <el-form-item label="标题(제목)：" prop="title">
             <el-input
               v-model="addorputForm.title"
               size="medium"
-              placeholder="输入标题"
+              placeholder="输入标题(제목을 입력)"
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="价格：">
+          <el-form-item label="价格(가격)：">
             <div class="price-box">
               <div class="price-box-money">
-                <span>总价：</span>
+                <span>总价(분양가)：</span>
                 <el-input
                   size="medium"
                   type="number"
@@ -54,7 +54,7 @@
                 ></el-input>
               </div>
               <div class="price-box-money">
-                <span>首付：</span>
+                <span>首付(실입주금)：</span>
                 <el-input
                   size="medium"
                   type="number"
@@ -65,7 +65,7 @@
                 ></el-input>
               </div>
               <div class="price-box-money">
-                <span>贷款：</span>
+                <span>贷款(융자금)：</span>
                 <el-input
                   size="medium"
                   type="number"
@@ -77,28 +77,30 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item label="楼层：" prop="floor">
+          <el-form-item label="楼层(바닥)：" prop="floor">
             <el-input
               v-model="addorputForm.floor"
               placeholder="输入楼层"
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="房间数：" prop="roomNum">
+          <el-form-item label="房间数(객실 수)：" prop="roomNum">
             <el-input
               v-model="addorputForm.roomNum"
+              type="number"
               placeholder="输入房间数"
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="户数：" prop="familyNum">
+          <el-form-item label="户数(세대수)：" prop="familyNum">
             <el-input
               v-model="addorputForm.familyNum"
+              type="number"
               placeholder="输入户数"
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="所在城市：" prop="city">
+          <el-form-item label="所在城市(도시)：" prop="city">
             <el-select
               v-model="searchFrom.city"
               @change="cityChange('1', $event)"
@@ -141,7 +143,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="地点信息：" prop="address">
+          <el-form-item label="地点信息(위치 정보)："  prop="address">
             <el-input
               size="medium"
               class="address-size"
@@ -154,10 +156,10 @@
               style="margin-left: 20px"
               icon="el-icon-location"
               @click="getLngLat('address')"
-              >选择地点</el-button
+              >选择地点(위치 선택)</el-button
             >
           </el-form-item>
-          <el-form-item label="供给面积：" prop="area">
+          <el-form-item label="供给面积(공급 지역)：" prop="area">
             <el-input
               type="number"
               size="medium"
@@ -166,7 +168,7 @@
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="实际面积：" prop="actual_area">
+          <el-form-item label="实际面积(실제 면적)：" prop="actual_area">
             <el-input
               type="number"
               size="medium"
@@ -176,7 +178,7 @@
             ></el-input>
           </el-form-item>
 
-          <el-form-item label="促销：" prop="marketingLabel">
+          <el-form-item label="促销(프로모션)：" prop="marketingLabel">
             <el-select
               v-model="addorputForm.marketingLabel"
               size="medium"
@@ -192,7 +194,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="标题标签：" prop="titleLabel">
+          <el-form-item label="标题标签(제목 태그)：" prop="titleLabel">
             <el-select
               v-model="addorputForm.titleLabel"
               size="medium"
@@ -209,7 +211,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="防水：" prop="waterRepellent">
+          <el-form-item label="防水(방수)：" prop="waterRepellent">
             <el-select
               v-model="addorputForm.waterRepellent"
               size="medium"
@@ -225,7 +227,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="浴室：" prop="showerRoom">
+          <el-form-item label="浴室(화장실)：" prop="showerRoom">
             <el-select
               v-model="addorputForm.showerRoom"
               size="medium"
@@ -241,7 +243,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="暖气：" prop="heat">
+          <el-form-item label="暖气(난방)：" prop="heat">
             <el-select
               v-model="addorputForm.heat"
               size="medium"
@@ -257,7 +259,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="交易类型：" prop="tradeType">
+          <el-form-item label="交易类型(거래 유형)：" prop="tradeType">
             <el-select
               v-model="addorputForm.tradeType"
               size="medium"
@@ -274,7 +276,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="销售类型：" prop="saleType">
+          <el-form-item label="销售类型(판매 유형)：" prop="saleType">
             <el-select
               v-model="addorputForm.saleType"
               size="medium"
@@ -290,7 +292,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="住宅类型：" prop="homeType">
+          <el-form-item label="住宅类型(거주 유형)：" prop="homeType">
             <el-select
               v-model="addorputForm.homeType"
               size="medium"
@@ -306,7 +308,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="地铁线路距离：">
+          <el-form-item label="地铁线路距离(지하철 노선 거리)：">
             <div class="task-lngLat">
               <div
                 class="lngLat-list"
@@ -330,14 +332,14 @@
                   class="address-size"
                   size="medium"
                   v-model="item.name"
-                  placeholder="输入地铁"
+                  placeholder="输入地铁(지하철을 타다)"
                   autocomplete="off"
                 ></el-input>
                 <el-input
                   class="address-size"
                   size="medium"
                   v-model="item.info"
-                  placeholder="输入站点距离（如：直竹站 1.5 公里）"
+                  placeholder="输入站点距离（如：直竹站 1.5 公里）(사이트 거리 입력)"
                   autocomplete="off"
                 ></el-input>
                 <el-link
@@ -345,15 +347,15 @@
                   class="link-m"
                   :underline="false"
                   @click="delLngLat(item, index)"
-                  >删除</el-link
+                  >删除(삭제)</el-link
                 >
               </div>
               <el-link type="primary" :underline="false" @click="addLngLat"
-                >添加地铁线路</el-link
+                >添加地铁线路(지하철 노선 추가)</el-link
               >
             </div>
           </el-form-item>
-          <el-form-item label="选项信息：" prop="checkboxGroup">
+          <el-form-item label="选项信息(옵션 정보)：" prop="checkboxGroup">
             <el-checkbox-group v-model="checkboxGroup" size="mini">
               <el-checkbox
                 v-for="(item, index) in dict.type.house_information"
@@ -364,7 +366,7 @@
               ></el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="房产周边：">
+          <el-form-item label="房产周边(숙소 주변)：">
             <div class="task-lngLat">
               <div
                 class="lngLat-list"
@@ -375,7 +377,7 @@
                   v-model="item.type"
                   size="medium"
                   style="width: 200px; margin-right: 10px"
-                  placeholder="请选择周边类型"
+                  placeholder="请选择周边类型(주변 유형을 선택하세요.)"
                 >
                   <el-option
                     v-for="(periphery, index) in dict.type.house_periphery"
@@ -391,38 +393,38 @@
                   v-model="item.latLng"
                   style="width: 10px"
                 ></el-input>
-                <el-link
+                <!-- <el-link
                   type="danger"
                   class="link-m"
                   :underline="false"
                   @click="setPeriphery('periphery')"
-                  >选择地点</el-link
-                >
+                  >选择地点(위치 선택)</el-link
+                > -->
                 <el-link
                   type="danger"
                   class="link-m"
                   :underline="false"
                   @click="delPeriphery(item, index)"
-                  >删除</el-link
+                  >删除(삭제)</el-link
                 >
               </div>
               <el-link type="primary" :underline="false" @click="addPeriphery"
-                >添加周边信息</el-link
+                >添加周边信息(주변 정보 추가)</el-link
               >
             </div>
           </el-form-item>
-          <el-form-item label="封面图片：">
+          <el-form-item label="封面图片(표지 이미지)：">
             <image-upload :limit="1" @input="titleImg"></image-upload>
           </el-form-item>
-          <el-form-item label="房屋图片：">
+          <el-form-item label="房屋图片(집 사진)：">
             <image-upload :limit="20" @input="fileList"></image-upload>
           </el-form-item>
-          <el-form-item label="绑定经纪人：" prop="middlemanId">
+          <el-form-item label="绑定经纪人(바인딩 브로커)：" prop="middlemanId">
             <el-select
               v-model="addorputForm.middlemanId"
               size="medium"
               style="width: 200px; margin-right: 10px"
-              placeholder="请选择经纪人"
+              placeholder="请选择经纪人(브로커를 선택하세요)"
             >
               <el-option
                 v-for="(periphery, index) in agentOption"
@@ -433,7 +435,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="经纪人电话：" prop="phone">
+          <el-form-item label="经纪人电话(브로커 전화)：" prop="phone">
             <el-input
               v-model="addorputForm.phone"
               size="medium"
@@ -441,18 +443,18 @@
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="房屋状态：" prop="status">
+          <el-form-item label="房屋状态(집 상태)：" prop="status">
             <el-switch
               v-model="addorputForm.status"
               active-color="#13ce66"
               inactive-color="#ff4949"
-              active-text="上架"
-              inactive-text="下架"
-              active-value="1"
-              inactive-value="0"
+              active-text="上架(선반 위에)"
+              inactive-text="下架(내리다)"
+              :active-value="1"
+              :inactive-value="0"
             ></el-switch>
           </el-form-item>
-          <el-form-item label="详情信息：" prop="item">
+          <el-form-item label="详情信息(세부)：" prop="item">
             <div class="editor-box">
               <editor class="editor" v-model="addorputForm.item"></editor>
             </div>
@@ -461,13 +463,13 @@
       </div>
 
       <div slot="footer" class="dialog-footer">
-        <el-button @click="handleClose">取 消</el-button>
+        <el-button @click="handleClose">取 消(취소)</el-button>
         <el-button type="primary" @click="dialogFormSubmit" v-preventReClick
-          >确 定</el-button
+          >确 定(확신하는)</el-button
         >
       </div>
       <el-dialog
-        title="位置搜索"
+        title="位置搜索(위치 검색)"
         :visible.sync="mapVisible"
         v-if="mapVisible"
         append-to-body
@@ -615,7 +617,7 @@ export default {
       console.log(this.addorputForm);
       addRoom({ ...this.addorputForm }).then((res) => {
         if (res.code == 200) {
-          this.$message.success("新增成功！");
+          this.$message.success("新增成功(성공적으로 추가되었습니다)！");
           this.handleClose();
           this.$parent.getList()
         }

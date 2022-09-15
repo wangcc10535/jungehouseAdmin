@@ -32,9 +32,9 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="handleClose">取 消</el-button>
+        <el-button @click="handleClose">取 消(취소)</el-button>
         <el-button type="primary" @click="dialogFormSubmit" v-preventReClick
-          >确 定</el-button
+          >确 定(확신하는)</el-button
         >
       </div>
     </el-dialog>
@@ -70,7 +70,7 @@ export default {
       if (this.addorputForm.dictCode) {
         editRegion({ ...version, dictCode: this.addorputForm.dictCode }).then(
           (res) => {
-            this.$message.success("修改成功！");
+            this.$message.success("修改成功！(성공적으로 수정되었습니다!)");
             this.handleClose();
             this.$parent.getList();
           }
@@ -79,7 +79,7 @@ export default {
         addRegion(version).then((res) => {
           // console.log(res)
           if (res.code == 200) {
-            this.$message.success("新增成功！");
+            this.$message.success("新增成功(성공적으로 추가되었습니다)！");
             this.handleClose();
             this.$parent.getList();
           }

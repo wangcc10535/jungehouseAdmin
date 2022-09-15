@@ -14,15 +14,15 @@
           :rules="rules"
           label-width="120px"
         >
-          <el-form-item label="标题：">
+          <el-form-item label="标题(제목)：">
             <el-input
               v-model="addorputForm.title"
               size="medium"
-              placeholder="输入标题"
+              placeholder="输入标题(제목을 입력)"
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="封面：">
+          <el-form-item label="封面(표지 사진)：">
             <image-upload
               ref="imgUpload"
               :limit="1"
@@ -30,14 +30,14 @@
               :value="addorputForm.image"
             ></image-upload>
           </el-form-item>
-          <el-form-item label="正文：">
+          <el-form-item label="正文(세부)：">
             <div class="editor-box">
             <editor class="editor" v-model="addorputForm.info"></editor>
           </div>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="handleClose">取 消</el-button>
+          <el-button @click="handleClose">取 消(취소)</el-button>
           <el-button type="primary" @click="dialogFormSubmit" v-preventReClick
             >确 定</el-button
           >
@@ -69,7 +69,7 @@
         if(this.addorputForm.id) {
           editApplaud({...this.addorputForm}).then((res) => {
           if (res.code == 200) {
-            this.$message.success("修改成功！");
+            this.$message.success("修改成功！(성공적으로 수정되었습니다!)");
             this.handleClose();
             this.$parent.getList()
           }
@@ -77,7 +77,7 @@
         }else{
           addApplaud({...this.addorputForm}).then((res) => {
           if (res.code == 200) {
-            this.$message.success("新增成功！");
+            this.$message.success("新增成功(성공적으로 추가되었습니다)！");
             this.handleClose();
             this.$parent.getList()
           }

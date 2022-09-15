@@ -35,7 +35,7 @@
         size="mini"
         icon="el-icon-plus"
         @click="addQuestion"
-        >添加问答</el-button
+        >添加问答(질문 및 답변 추가)</el-button
       >
       <div class="content-table">
         <el-table
@@ -46,36 +46,36 @@
         >
           <el-table-column
             type="index"
-            label="序号"
-            width="50"
+            label="序号(일련 번호)"
+            width="120"
             align="center"
             fixed="left"
           ></el-table-column>
           <el-table-column
             prop="question"
-            label="问题"
+            label="问题(의문)"
             align="center"
             fixed="left"
           ></el-table-column>
           <el-table-column
             prop="answer"
-            label="回复"
+            label="回复(회신하다)"
             align="center"
           ></el-table-column>
-          <el-table-column label="操作" align="center">
+          <el-table-column label="操作(작동하다)" align="center">
             <template slot-scope="{ row }">
               <el-button
                 @click="edit(row)"
                 size="small"
                 class="link-m"
                 type="warning"
-                >编辑</el-button
+                >编辑(편집하다)</el-button
               >
               <el-popconfirm
-                confirm-button-text="是的"
-                cancel-button-text="不用了"
+              confirm-button-text="是的(예)"
+                cancel-button-text="不用了(필요 없음)"
                 @confirm="compDelete(row)"
-                title="确定删除吗？"
+                title="确定删除吗？(삭제 확인?)"
               >
                 <el-button
                   type="danger"
@@ -83,7 +83,7 @@
                   class="link-m"
                   slot="reference"
                   v-hasPermi="['personnel:delstaff:configure']"
-                  >删除</el-button
+                  >删除(삭제)</el-button
                 >
               </el-popconfirm>
             </template>
@@ -143,17 +143,17 @@ export default {
       });
     },
     addQuestion() {
-      this.title = "新增问答";
+      this.title = "新增问答(질문 및 답변 추가)";
       this.$refs.addref.openDialogEven();
     },
     edit(row) {
-      this.title = "修改问答";
+      this.title = "修改问答(Q&A 수정)";
       this.$refs.addref.openDialogEven(row);
     },
     compDelete(row) {
       delFaq({ id: row.id }).then((res) => {
         if (res.code == 200) {
-          this.$message.success("删除成功！");
+          this.$message.success("删除成功！(성공적으로 삭제되었습니다!)");
           this.getList();
         }
       });

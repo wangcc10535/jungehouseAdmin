@@ -15,7 +15,7 @@
         size="mini"
         icon="el-icon-plus"
         @click="addbanner"
-        >添加广告</el-button
+        >添加广告(광고 추가)</el-button
       >
       <div class="content-table">
         <el-table
@@ -26,32 +26,32 @@
         >
           <el-table-column
             type="index"
-            label="序号"
-            width="50"
+            label="序号(일련 번호)"
+            width="140"
             align="center"
             fixed="left"
           ></el-table-column>
-          <el-table-column label="图片" align="center">
+          <el-table-column label="图片(그림)" align="center">
             <template slot-scope="{ row }">
               <div class="img-box" v-viewer>
                 <img :src="row.dictValue" alt="" />
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center">
+          <el-table-column label="操作(작동하다)" align="center">
             <template slot-scope="{ row }">
               <el-button
                 @click="edit(row)"
                 size="small"
                 class="link-m"
                 type="warning"
-                >编辑</el-button
+                >编辑(편집하다)</el-button
               >
               <el-popconfirm
-                confirm-button-text="是的"
-                cancel-button-text="不用了"
+              confirm-button-text="是的(예)"
+                cancel-button-text="不用了(필요 없음)"
                 @confirm="compDelete(row)"
-                title="确定删除吗？"
+                title="确定删除吗？(삭제 확인?)"
               >
                 <el-button
                   type="danger"
@@ -59,7 +59,7 @@
                   class="link-m"
                   slot="reference"
                   v-hasPermi="['personnel:delstaff:configure']"
-                  >删除</el-button
+                  >删除(삭제)</el-button
                 >
               </el-popconfirm>
             </template>
@@ -104,12 +104,12 @@ export default {
   methods: {
     //  新增
     addbanner() {
-      this.diaitle = "新增广告";
+      this.diaitle = "新增广告(광고 추가)";
       this.$refs.bannerRef.openVisible();
     },
     // 修改
     edit(item) {
-      this.diaitle = "修改广告";
+      this.diaitle = "修改广告(광고 수정)";
       this.$refs.bannerRef.openVisible(item);
     },
     // 删除
@@ -117,7 +117,7 @@ export default {
       // console.log(item)
       delBanner(item.dictCode).then((res) => {
         if (res.code == 200) {
-          this.$message.success("删除成功！");
+          this.$message.success("删除成功！(성공적으로 삭제되었습니다)");
           this.getList();
         }
       });

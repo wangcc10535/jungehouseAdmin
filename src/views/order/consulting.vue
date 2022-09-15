@@ -19,51 +19,51 @@
         >
           <el-table-column
             type="index"
-            label="序号"
-            width="50"
+            label="序号(일련 번호)"
+            width="120"
             align="center"
             fixed="left"
           ></el-table-column>
           <el-table-column
             prop="homeNum"
-            label="房产货号"
+            label="房产货号(부동산 번호)"
             align="center"
             fixed="left"
           ></el-table-column>
           <el-table-column
             prop="mname"
-            label="经纪人"
+            label="经纪人(브로커)"
             align="center"
           ></el-table-column>
           <el-table-column
             prop="phone"
-            label="用户电话"
+            label="用户电话(사용자 전화)"
             align="center"
           ></el-table-column>
           <el-table-column
             prop="require"
-            label="咨询内容"
+            label="咨询内容(상담내용)"
             align="center"
           ></el-table-column>
           <el-table-column
             prop="updateTime"
-            label="提交时间"
+            label="提交时间(제출 시간)"
             align="center"
           ></el-table-column>
-          <el-table-column label="操作" align="center" fixed="right">
+          <el-table-column label="操作(작동하다)" align="center" fixed="right">
             <template slot-scope="{ row }">
               <el-popconfirm
-                confirm-button-text="是的"
-                cancel-button-text="不用了"
+              confirm-button-text="是的(예)"
+                cancel-button-text="不用了(필요 없음)"
                 @confirm="delRow(row)"
-                title="确定删除吗？"
+                title="确定删除吗？(삭제 확인?)"
               >
                 <el-button
                   type="danger"
                   size="small"
                   class="link-m"
                   slot="reference"
-                  >删除</el-button
+                  >删除(삭제)</el-button
                 >
               </el-popconfirm>
             </template>

@@ -16,7 +16,7 @@
           <el-form-item label="地址：" prop="newsTitle">
             <span>{{ addorputForm.province }}{{ addorputForm.city }}{{ addorputForm.district }}</span>
           </el-form-item>
-          <el-form-item label="价格：" prop="info">
+          <el-form-item label="价格(가격)：" prop="info">
           <span>最低价格：{{ addorputForm.lowPrice }}</span>，
           <span>最高价格：{{ addorputForm.highPrice }}</span>，
           </el-form-item>

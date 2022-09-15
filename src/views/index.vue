@@ -1,6 +1,7 @@
 <template>
   <div class="body-box">
-    俊阁家园后台管理系统
+    俊阁家园后台管理系统 <br />
+    JUNGE HOUSING 백그라운드 관리 시스템
   </div>
 </template>
 
@@ -19,6 +20,7 @@ export default {
 
 <style scoped lang="scss">
   .body-box{
+    text-align: center;
     width: 100%;
     height: 80vh;
     background-color: #fff;

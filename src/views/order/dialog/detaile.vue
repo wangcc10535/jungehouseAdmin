@@ -24,50 +24,50 @@
           :rules="rules"
           label-width="120px"
         >
-          <el-form-item label="房产货号：" prop="homeNum">
+          <el-form-item label="房产货号(부동산 번호)：" prop="homeNum">
             <span>{{ addorputForm.homeNum }}</span>
           </el-form-item>
-          <el-form-item label="标题：" prop="title">
+          <el-form-item label="标题(제목)：" prop="title">
             <span>{{ addorputForm.title }}</span>
           </el-form-item>
-          <el-form-item label="价格：">
+          <el-form-item label="价格(가격)：">
             <div class="price-box">
               <div class="price-box-money">
-                <span>总价：</span>
+                <span>总价(분양가)：</span>
                 <span class="money-input">{{ addorputForm.lastPrice }}</span>
               </div>
               <div class="price-box-money">
-                <span>首付：</span>
+                <span>首付(실입주금)：</span>
                 <span class="money-input">{{ addorputForm.roomPrice }}</span>
               </div>
               <div class="price-box-money">
-                <span>贷款：</span>
+                <span>贷款(융자금)：</span>
                 <span class="money-input">{{ addorputForm.loans }}</span>
               </div>
             </div>
           </el-form-item>
-          <el-form-item label="楼层：" prop="floor">
+          <el-form-item label="楼层(바닥)：" prop="floor">
             <span>{{ addorputForm.floor }}</span>
           </el-form-item>
-          <el-form-item label="房间数：" prop="roomNum">
+          <el-form-item label="房间数(객실 수)：" prop="roomNum">
             <span>{{ addorputForm.roomNum }}</span>
           </el-form-item>
-          <el-form-item label="户数：" prop="familyNum">
+          <el-form-item label="户数(세대수)：" prop="familyNum">
             <span>{{ addorputForm.familyNum }}</span>
           </el-form-item>
-          <el-form-item label="所在城市：" prop="city">
+          <el-form-item label="所在城市(도시)：" prop="city">
             <span>{{ addorputForm.city }}</span>
           </el-form-item>
-          <el-form-item label="地点信息：" prop="address">
+          <el-form-item label="地点信息(위치 정보)：" prop="address">
             <span>{{ addorputForm.address }}</span>
           </el-form-item>
-          <el-form-item label="供给面积：" prop="area">
+          <el-form-item label="供给面积(공급 지역)：" prop="area">
             <span>{{ addorputForm.area }}㎡</span>
           </el-form-item>
-          <el-form-item label="实际面积：" prop="actual_area">
+          <el-form-item label="实际面积(실제 면적)：" prop="actual_area">
             <span>{{ addorputForm.actualArea }}㎡</span>
           </el-form-item>
-          <el-form-item label="促销：" prop="marketingLabel">
+          <el-form-item label="促销(프로모션)：" prop="marketingLabel">
             <el-select
               v-model="addorputForm.marketingLabel"
               disabled
@@ -84,7 +84,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="标题标签：" prop="titleLabel">
+          <el-form-item label="标题标签(제목 태그)：" prop="titleLabel">
             <el-select
               v-model="addorputForm.titleLabel"
               size="medium"
@@ -102,7 +102,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="防水：" prop="waterRepellent">
+          <el-form-item label="防水(방수)：" prop="waterRepellent">
             <el-select
               v-model="addorputForm.waterRepellent"
               disabled
@@ -119,7 +119,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="浴室：" prop="showerRoom">
+          <el-form-item label="浴室(화장실)：" prop="showerRoom">
             <el-select
               v-model="addorputForm.showerRoom"
               size="medium"
@@ -136,7 +136,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="暖气：" prop="heat">
+          <el-form-item label="暖气(난방)：" prop="heat">
             <el-select
               v-model="addorputForm.heat"
               disabled
@@ -153,7 +153,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="交易类型：" prop="tradeType">
+          <el-form-item label="交易类型(거래 유형)：" prop="tradeType">
             <el-select
               v-model="addorputForm.tradeType"
               size="medium"
@@ -171,7 +171,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="销售类型：" prop="saleType">
+          <el-form-item label="销售类型(판매 유형)：" prop="saleType">
             <el-select
               v-model="addorputForm.saleType"
               size="medium"
@@ -188,7 +188,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="住宅类型：" prop="homeType">
+          <el-form-item label="住宅类型(거주 유형)：" prop="homeType">
             <el-select
               v-model="addorputForm.homeType"
               disabled
@@ -205,7 +205,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="地铁线路距离：">
+          <el-form-item label="地铁线路距离(지하철 노선 거리)：">
             <div class="task-lngLat">
               <div
                 class="lngLat-list"
@@ -230,7 +230,7 @@
                   size="medium"
                   v-model="item.name"
                   disabled
-                  placeholder="输入地铁"
+                  placeholder="输入地铁(지하철을 타다)"
                   autocomplete="off"
                 ></el-input>
                 <el-input
@@ -238,13 +238,13 @@
                   size="medium"
                   v-model="item.info"
                   disabled
-                  placeholder="输入站点距离（如：直竹站 1.5 公里）"
+                  placeholder="输入站点距离（如：直竹站 1.5 公里）(사이트 거리 입력)"
                   autocomplete="off"
                 ></el-input>
               </div>
             </div>
           </el-form-item>
-          <el-form-item label="选项信息：" prop="checkboxGroup">
+          <el-form-item label="选项信息(옵션 정보)：" prop="checkboxGroup">
             <el-checkbox-group v-model="checkboxGroup" size="mini">
               <el-checkbox
                 v-for="(item, index) in dict.type.house_information"
@@ -256,7 +256,7 @@
               ></el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="房产周边：">
+          <el-form-item label="房产周边(숙소 주변)：">
             <div class="task-lngLat">
               <div
                 class="lngLat-list"
@@ -268,7 +268,7 @@
                   size="medium"
                   disabled
                   style="width: 200px; margin-right: 10px"
-                  placeholder="请选择周边类型"
+                  placeholder="请选择周边类型(주변 유형을 선택하세요.)"
                 >
                   <el-option
                     v-for="(periphery, index) in dict.type.house_periphery"
@@ -282,28 +282,28 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item label="封面图片：">
+          <el-form-item label="封面图片(표지 이미지)：">
             <el-image :src="addorputForm.image" style="width:148px;height:148px;object-fit: cover;">
               <div slot="placeholder" class="image-slot">
                 加载中<span class="dot">...</span>
               </div>
             </el-image>
           </el-form-item>
-          <el-form-item label="房屋图片：">
+          <el-form-item label="房屋图片(집 사진)：">
             <el-image :src="item.image" v-for="(item,index) in addorputForm.roomImages" :key="index" style="width:148px;height:148px;object-fit: cover;margin-right:10px">
               <div slot="placeholder" class="image-slot">
                 加载中<span class="dot">...</span>
               </div>
             </el-image>
           </el-form-item>
-          <el-form-item label="绑定经纪人：" prop="middlemanId">
+          <el-form-item label="绑定经纪人(바인딩 브로커)：" prop="middlemanId">
             <el-select
               v-model="addorputForm.middlemanId"
               size="medium"
               disabled
               value-key="funcKey"
               style="width: 200px; margin-right: 10px"
-              placeholder="请选择经纪人"
+              placeholder="请选择经纪人(브로커를 선택하세요)"
             >
               <el-option
                 v-for="(periphery, index) in agentOption"
@@ -314,7 +314,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="经纪人电话：" prop="phone">
+          <el-form-item label="经纪人电话(브로커 전화)：" prop="phone">
             <el-input
               v-model="addorputForm.phone"
               size="medium"
@@ -323,19 +323,19 @@
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item label="房屋状态：" prop="status">
+          <el-form-item label="房屋状态(집 상태)：" prop="status">
             <el-switch
             disabled
               v-model="addorputForm.status"
               active-color="#13ce66"
               inactive-color="#ff4949"
-              active-text="上架"
-              inactive-text="下架"
+              active-text="上架(선반 위에)"
+              inactive-text="下架(내리다)"
               :active-value="1"
               :inactive-value="0"
             ></el-switch>
           </el-form-item>
-          <el-form-item label="详情信息：" prop="item">
+          <el-form-item label="详情信息(세부)：" prop="item">
                 <div v-html="addorputForm.item" style="width:80%"></div>
           </el-form-item>
         </el-form>
@@ -425,7 +425,7 @@ export default {
           if (this.addorputForm.option) {
             this.checkboxGroup = this.addorputForm.option.split(",");
           }
-          this.addorputForm.middlemanId = parseInt(this.addorputForm.middlemanId)
+          // this.addorputForm.middlemanId = parseInt(this.addorputForm.middlemanId)
           this.lngLatList = this.addorputForm.roomSubways;
           this.peripheryList = this.addorputForm.roomNeighbors;
 

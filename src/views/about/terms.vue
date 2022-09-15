@@ -51,7 +51,7 @@ export default {
       };
       editTerms(version).then((res) => {
         if (res.code == 200) {
-          this.$message.success("修改成功！");
+          this.$message.success("修改成功！(성공적으로 수정되었습니다!)");
           // this.getList();
         }
       });
@@ -64,7 +64,7 @@ export default {
       };
       addTerms(version).then((res) => {
         if (res.code == 200) {
-          this.$message.success("新增成功！");
+          this.$message.success("新增成功(성공적으로 추가되었습니다)！");
           this.getList();
         }
       });

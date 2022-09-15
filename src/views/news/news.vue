@@ -35,7 +35,7 @@
           size="mini"
           icon="el-icon-plus"
           @click="addQuestion"
-          >添加新闻</el-button
+          >添加新闻(뉴스 추가)</el-button
         >
         <div class="content-table">
           <el-table
@@ -46,29 +46,29 @@
           >
             <el-table-column
               type="index"
-              label="序号"
-              width="50"
+              label="序号(일련 번호)"
+              width="120"
               align="center"
               fixed="left"
             ></el-table-column>
             <el-table-column
               prop="newsTitle"
-              label="标题"
+              label="标题(제목)"
               align="center"
               fixed="left"
             ></el-table-column>
             <el-table-column
               prop="info"
-              label="简介"
+              label="简介(소개)"
               align="center"
             ></el-table-column>
             <el-table-column
               prop="name"
-              label="作者"
+              label="作者(작가)"
               align="center"
             ></el-table-column>
             <el-table-column
-              label="封面"
+              label="封面(씌우다)"
               align="center"
             >
             <template slot-scope="{ row }">
@@ -77,20 +77,20 @@
               </div>
             </template>
           </el-table-column>
-            <el-table-column label="操作" align="center">
+            <el-table-column label="操作(작동하다)" align="center">
               <template slot-scope="{ row }">
                 <el-button
                   @click="edit(row)"
                   size="small"
                   class="link-m"
                   type="warning"
-                  >编辑</el-button
+                  >编辑(편집하다)</el-button
                 >
                 <el-popconfirm
-                  confirm-button-text="是的"
-                  cancel-button-text="不用了"
-                  @confirm="compDelete(row)"
-                  title="确定删除吗？"
+                confirm-button-text="是的(예)"
+                cancel-button-text="不用了(필요 없음)"
+                @confirm="compDelete(row)"
+                title="确定删除吗？(삭제 확인?)"
                 >
                   <el-button
                     type="danger"
@@ -98,7 +98,7 @@
                     class="link-m"
                     slot="reference"
                     v-hasPermi="['personnel:delstaff:configure']"
-                    >删除</el-button
+                    >删除(삭제)</el-button
                   >
                 </el-popconfirm>
               </template>
@@ -158,17 +158,17 @@
         });
       },
       addQuestion() {
-        this.title = "新增新闻";
+        this.title = "新增新闻(뉴스 추가)";
         this.$refs.addref.openDialogEven();
       },
       edit(row) {
-        this.title = "修改新闻";
+        this.title = "修改新闻(뉴스 수정)";
         this.$refs.addref.openDialogEven(row);
       },
       compDelete(row) {
         delNews({ id: row.id }).then((res) => {
           if (res.code == 200) {
-            this.$message.success("删除成功！");
+            this.$message.success("删除成功！(성공적으로 삭제되었습니다!)");
             this.getList();
           }
         });

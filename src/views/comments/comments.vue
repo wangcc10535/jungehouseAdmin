@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="content base-background">
-      <el-button type="primary" size="mini" icon="el-icon-plus" @click="addComments">添加评论</el-button>
+      <el-button type="primary" size="mini" icon="el-icon-plus" @click="addComments">添加评论(댓글 추가)</el-button>
       <div class="content-table">
         <el-table
           :data="tableData"
@@ -26,47 +26,46 @@
         >
           <el-table-column
             type="index"
-            label="序号"
-            width="50"
+            label="序号(일련 번호)"
+            width="120"
             align="center"
             fixed="left"
           ></el-table-column>
-          <el-table-column label="标题" prop="title" align="center">
+          <el-table-column label="标题(제목)" prop="title" align="center">
           </el-table-column>
-          <el-table-column label="图片" align="center">
+          <el-table-column label="封面图片(표지 이미지)" align="center">
             <template slot-scope="{ row }">
               <div class="img-box" v-viewer>
                 <img :src="row.image" alt="" />
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="上传时间" prop="createTime" align="center">
+          <el-table-column label="上传时间(업로드 시간)" prop="createTime" align="center">
             <template slot-scope="{ row }">
               <span>{{parseTime(row.createTime)}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center">
+          <el-table-column label="操作(운영하다)" align="center">
             <template slot-scope="{ row }">
               <el-button
                 @click="edit(row)"
                 size="small"
                 class="link-m"
                 type="warning"
-                >编辑</el-button
+                >编辑(편집하다)</el-button
               >
               <el-popconfirm
-                confirm-button-text="是的"
-                cancel-button-text="不用了"
+                confirm-button-text="是的(예)"
+                cancel-button-text="不用了(필요 없음)"
                 @confirm="compDelete(row)"
-                title="确定删除吗？"
+                title="确定删除吗？(삭제 확인?)"
               >
                 <el-button
                   type="danger"
                   size="small"
                   class="link-m"
-                  slot="reference"
                   v-hasPermi="['personnel:delstaff:configure']"
-                  >删除</el-button
+                  >删除(삭제)</el-button
                 >
               </el-popconfirm>
             </template>
@@ -111,12 +110,12 @@ export default {
   methods: {
     //  新增
     addComments() {
-      this.diaitle = "新增评论";
+      this.diaitle = "新增评论(코멘트를 추가하다)";
       this.$refs.addialog.openVisible();
     },
     // 修改
     edit(item) {
-      this.diaitle = "修改评论";
+      this.diaitle = "修改评论(댓글 수정)";
       this.$refs.addialog.openVisible(item);
     },
     // 删除
@@ -124,7 +123,7 @@ export default {
       // console.log(item)
       delApplaud({id:item.id}).then((res) => {
         if (res.code == 200) {
-          this.$message.success("删除成功！");
+          this.$message.success("删除成功！(성공적으로 삭제되었습니다!)");
           this.getList();
         }
       });
