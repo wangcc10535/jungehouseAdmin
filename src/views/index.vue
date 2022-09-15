@@ -1,7 +1,7 @@
 <template>
   <div class="body-box">
     俊阁家园后台管理系统 <br />
-    JUNGE HOUSING 백그라운드 관리 시스템
+    JUNLAND HOUSING 백그라운드 관리 시스템
   </div>
 </template>
 
