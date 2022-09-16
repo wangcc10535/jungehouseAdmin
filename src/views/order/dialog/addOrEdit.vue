@@ -211,7 +211,7 @@
               >
             </el-select>
           </el-form-item>
-          <el-form-item label="防水(방수)：" prop="waterRepellent">
+          <!-- <el-form-item label="防水(방수)：" prop="waterRepellent">
             <el-select
               v-model="addorputForm.waterRepellent"
               size="medium"
@@ -226,7 +226,7 @@
                 >{{ item.label }}</el-option
               >
             </el-select>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="浴室(화장실)：" prop="showerRoom">
             <el-select
               v-model="addorputForm.showerRoom"
