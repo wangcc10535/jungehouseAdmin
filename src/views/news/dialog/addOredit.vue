@@ -51,7 +51,7 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="handleClose">取 消(취소)</el-button>
         <el-button type="primary" @click="dialogFormSubmit" v-preventReClick
-          >确 定(확신하는)</el-button
+          >确定(확인)</el-button
         >
       </div>
     </el-dialog>

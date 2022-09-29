@@ -2,8 +2,8 @@
  * @Description: 房产列表
  * @Author: wangcc
  * @Date: 2022-08-31 17:23:30
- * @LastEditors: wangcc
- * @LastEditTime: 2022-09-01 17:27:29
+ * @LastEditors: wangcc 1053578651@qq.com
+ * @LastEditTime: 2022-09-29 21:20:42
  * @FilePath: \jungehouseAdmin\src\views\order\orderList.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
@@ -237,7 +237,7 @@ export default {
       this.$refs.detailFrom.openDialogEven(row);
     },
     addOrder() {
-      this.dialogTitle = "添加房产信息(속성 정보 추가)";
+      this.dialogTitle = "添加房产信息( 부동산 등록)";
       this.$refs.addFrom.openDialogEven();
     },
     delRow(row) {
