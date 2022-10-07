@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-09-01 11:54:02
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-09-29 21:56:51
+ * @LastEditTime: 2022-10-07 13:37:06
  * @FilePath: \jungehouseAdmin\src\views\order\dialog\addOrEdit.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved.
 -->
@@ -179,7 +179,7 @@
                 :value="item.value" border></el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="房产周边(숙소 주변)：">
+          <el-form-item label="房产周边(주변시설)：">
             <div class="task-lngLat">
               <div class="lngLat-list" v-for="(item, index) in peripheryList" :key="index">
                 <el-select v-model="item.type" size="medium" style="width: 200px; margin-right: 10px"
@@ -202,27 +202,27 @@
               <el-link type="primary" :underline="false" @click="addPeriphery">添加周边信息(주변 정보 추가)</el-link>
             </div>
           </el-form-item>
-          <el-form-item label="封面图片(표지 이미지)：">
+          <el-form-item label="封面图片(메인 이미지)：">
             <image-upload :limit="1" @input="titleImg"></image-upload>
           </el-form-item>
-          <el-form-item label="房屋图片(집 사진)：">
+          <el-form-item label="房屋图片(부동산 이미지)：">
             <image-upload :limit="20" @input="fileList"></image-upload>
           </el-form-item>
-          <el-form-item label="绑定经纪人(바인딩 브로커)：" prop="middlemanId">
+          <el-form-item label="绑定经纪人(매니저 바인딩)：" prop="middlemanId">
             <el-select v-model="addorputForm.middlemanId" size="medium" style="width: 200px; margin-right: 10px"
               placeholder="请选择经纪人(브로커를 선택하세요)">
               <el-option v-for="(periphery, index) in agentOption" :key="index" :label="periphery.name"
                 :value="periphery.id">{{ periphery.name }}</el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="经纪人电话(브로커 전화)：" prop="phone">
+          <el-form-item label="经纪人电话(매니저전화)：" prop="phone">
             <el-input v-model="addorputForm.phone" size="medium" placeholder="输入经纪人电话" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="房屋状态(집 상태)：" prop="status">
+          <el-form-item label="房屋状态(부동산 등록 상태)：" prop="status">
             <el-switch v-model="addorputForm.status" active-color="#13ce66" inactive-color="#ff4949"
-              active-text="上架(선반 위에)" inactive-text="下架(내리다)" :active-value="1" :inactive-value="0"></el-switch>
+              active-text="上架(상품 등록)" inactive-text="下架(내리다)" :active-value="1" :inactive-value="0"></el-switch>
           </el-form-item>
-          <el-form-item label="详情信息(세부)：" prop="item">
+          <el-form-item label="详情信息(세부정보)：" prop="item">
             <div class="editor-box">
               <editor class="editor" v-model="addorputForm.item"></editor>
             </div>

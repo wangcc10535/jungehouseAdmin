@@ -22,7 +22,7 @@
         >
           <el-table-column
             type="index"
-            label="序号(일련 번호)"
+            label="序号(순번)"
             width="50"
             align="center"
             fixed="left"

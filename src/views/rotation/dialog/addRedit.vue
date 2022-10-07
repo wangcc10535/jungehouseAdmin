@@ -14,7 +14,7 @@
         :rules="rules"
         label-width="120px"
       >
-        <el-form-item label="序号(일련 번호)：">
+        <el-form-item label="序号(순번)：">
           <el-input
             v-model="addorputForm.dictLabel"
             size="medium"

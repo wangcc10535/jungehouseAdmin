@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-08-31 17:23:30
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-09-29 21:20:42
+ * @LastEditTime: 2022-10-07 13:15:01
  * @FilePath: \jungehouseAdmin\src\views\order\orderList.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
@@ -46,7 +46,7 @@
         >
           <el-table-column
             type="index"
-            label="序号(일련 번호)"
+            label="序号(순번)"
             width="100"
             align="center"
             fixed="left"
