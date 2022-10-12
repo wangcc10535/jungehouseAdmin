@@ -2,8 +2,8 @@
  * @Description: 轮播图
  * @Author: wangcc
  * @Date: 2022-08-31 17:16:55
- * @LastEditors: wangcc
- * @LastEditTime: 2022-09-01 11:50:42
+ * @LastEditors: wangcc 1053578651@qq.com
+ * @LastEditTime: 2022-10-12 22:30:25
  * @FilePath: \jungehouseAdmin\src\views\rotation\rotation.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved.
 -->
@@ -58,7 +58,6 @@
                   size="small"
                   class="link-m"
                   slot="reference"
-                  v-hasPermi="['personnel:delstaff:configure']"
                   >删除(삭제)</el-button
                 >
               </el-popconfirm>

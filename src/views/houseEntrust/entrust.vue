@@ -75,7 +75,6 @@
                   type="danger"
                   size="small"
                   class="link-m"
-                  v-hasPermi="['personnel:delstaff:configure']"
                   >删除(삭제)</el-button
                 >
               </el-popconfirm>

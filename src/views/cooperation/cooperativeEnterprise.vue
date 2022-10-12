@@ -2,8 +2,8 @@
  * @Description: 合作企业
  * @Author: wangcc
  * @Date: 2022-08-31 17:36:04
- * @LastEditors: wangcc
- * @LastEditTime: 2022-08-31 17:36:06
+ * @LastEditors: wangcc 1053578651@qq.com
+ * @LastEditTime: 2022-10-12 22:31:03
  * @FilePath: \jungehouseAdmin\src\views\cooperation\cooperativeEnterprise.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
@@ -55,7 +55,6 @@
                   type="danger"
                   size="small"
                   class="link-m"
-                  v-hasPermi="['personnel:delstaff:configure']"
                   >删除(삭제)</el-button
                 >
               </el-popconfirm>

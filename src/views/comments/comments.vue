@@ -2,8 +2,8 @@
  * @Description: 客户评论
  * @Author: wangcc
  * @Date: 2022-09-01 10:25:20
- * @LastEditors: wangcc
- * @LastEditTime: 2022-09-01 11:15:32
+ * @LastEditors: wangcc 1053578651@qq.com
+ * @LastEditTime: 2022-10-12 22:31:02
  * @FilePath: \jungehouseAdmin\src\views\comments\comments.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
@@ -64,7 +64,6 @@
                   type="danger"
                   size="small"
                   class="link-m"
-                  v-hasPermi="['personnel:delstaff:configure']"
                   >删除(삭제)</el-button
                 >
               </el-popconfirm>

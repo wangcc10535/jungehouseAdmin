@@ -2,8 +2,8 @@
  * @Description: 经纪人管理
  * @Author: wangcc
  * @Date: 2022-08-31 17:39:43
- * @LastEditors: wangcc
- * @LastEditTime: 2022-08-31 17:41:04
+ * @LastEditors: wangcc 1053578651@qq.com
+ * @LastEditTime: 2022-10-12 22:31:01
  * @FilePath: \jungehouseAdmin\src\views\agent\agent.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
@@ -101,7 +101,6 @@
                   type="danger"
                   size="small"
                   class="link-m"
-                  v-hasPermi="['personnel:delstaff:configure']"
                   >删除(삭제)</el-button
                 >
               </el-popconfirm>

@@ -2,8 +2,8 @@
  * @Description: 新闻
  * @Author: wangcc
  * @Date: 2022-08-31 18:03:22
- * @LastEditors: wangcc
- * @LastEditTime: 2022-08-31 18:03:24
+ * @LastEditors: wangcc 1053578651@qq.com
+ * @LastEditTime: 2022-10-12 22:31:05
  * @FilePath: \jungehouseAdmin\src\views\news\news.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
@@ -97,7 +97,6 @@
                     size="small"
                     class="link-m"
                     slot="reference"
-                    v-hasPermi="['personnel:delstaff:configure']"
                     >删除(삭제)</el-button
                   >
                 </el-popconfirm>
