@@ -2,8 +2,8 @@
  * @Description: 新增或修改房产信息
  * @Author: wangcc
  * @Date: 2022-09-01 11:54:02
- * @LastEditors: wangcc
- * @LastEditTime: 2022-09-01 18:09:59
+ * @LastEditors: wangcc 1053578651@qq.com
+ * @LastEditTime: 2022-10-14 00:18:12
  * @FilePath: \jungehouseAdmin\src\views\order\dialog\addOrEdit.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
@@ -256,7 +256,7 @@
               ></el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="房产周边(숙소 주변)：">
+          <!-- <el-form-item label="房产周边(숙소 주변)：">
             <div class="task-lngLat">
               <div
                 class="lngLat-list"
@@ -281,7 +281,7 @@
                 <span>纬度：{{ item.lat }}，经度{{ item.lon }}</span>
               </div>
             </div>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="封面图片(표지 이미지)：">
             <el-image :src="addorputForm.image" style="width:148px;height:148px;object-fit: cover;">
               <div slot="placeholder" class="image-slot">

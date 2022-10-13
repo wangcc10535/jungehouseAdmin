@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-09-01 11:54:02
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-10-07 13:37:06
+ * @LastEditTime: 2022-10-14 00:17:53
  * @FilePath: \jungehouseAdmin\src\views\order\dialog\addOrEdit.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved.
 -->
@@ -179,7 +179,7 @@
                 :value="item.value" border></el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="房产周边(주변시설)：">
+          <!-- <el-form-item label="房产周边(주변시설)：">
             <div class="task-lngLat">
               <div class="lngLat-list" v-for="(item, index) in peripheryList" :key="index">
                 <el-select v-model="item.type" size="medium" style="width: 200px; margin-right: 10px"
@@ -189,19 +189,12 @@
                 </el-select>
                 <span>{{ item.peripheryAddress }}</span>
                 <el-input type="hidden" v-model="item.latLng" style="width: 10px"></el-input>
-                <!-- <el-link
-                  type="danger"
-                  class="link-m"
-                  :underline="false"
-                  @click="setPeriphery('periphery')"
-                  >选择地点(위치 선택)</el-link
-                > -->
                 <el-link type="danger" class="link-m" :underline="false" @click="delPeriphery(item, index)">删除(삭제)
                 </el-link>
               </div>
               <el-link type="primary" :underline="false" @click="addPeriphery">添加周边信息(주변 정보 추가)</el-link>
             </div>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="封面图片(메인 이미지)：">
             <image-upload :limit="1" @input="titleImg"></image-upload>
           </el-form-item>
