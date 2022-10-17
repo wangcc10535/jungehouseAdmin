@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-09-01 11:54:02
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-10-14 00:17:53
+ * @LastEditTime: 2022-10-17 21:51:04
  * @FilePath: \jungehouseAdmin\src\views\order\dialog\addOrEdit.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved.
 -->
@@ -196,10 +196,10 @@
             </div>
           </el-form-item> -->
           <el-form-item label="封面图片(메인 이미지)：">
-            <image-upload :limit="1" @input="titleImg"></image-upload>
+            <image-upload :limit="1" @input="titleImg" :fileSize="1"></image-upload>
           </el-form-item>
           <el-form-item label="房屋图片(부동산 이미지)：">
-            <image-upload :limit="20" @input="fileList"></image-upload>
+            <image-upload :limit="20" @input="fileList" :fileSize="1"></image-upload>
           </el-form-item>
           <el-form-item label="绑定经纪人(매니저 바인딩)：" prop="middlemanId">
             <el-select v-model="addorputForm.middlemanId" size="medium" style="width: 200px; margin-right: 10px"
