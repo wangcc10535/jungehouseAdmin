@@ -31,11 +31,11 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="作者(작가)：" prop="name">
+        <el-form-item label="跳转链接(링크를 건너뛰십시오)：" prop="name">
           <el-input
             v-model="addorputForm.name"
             size="medium"
-            placeholder="输入作者(작가 입력)"
+            placeholder="输入跳转链接(링크를 건너뛰십시오)"
             autocomplete="off"
           ></el-input>
         </el-form-item>

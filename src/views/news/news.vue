@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-08-31 18:03:22
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-10-12 22:31:05
+ * @LastEditTime: 2022-10-24 16:17:31
  * @FilePath: \jungehouseAdmin\src\views\news\news.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
@@ -64,7 +64,7 @@
             ></el-table-column>
             <el-table-column
               prop="name"
-              label="作者(작가)"
+              label="跳转链接(작가)"
               align="center"
             ></el-table-column>
             <el-table-column
