@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-09-01 11:54:02
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-10-17 21:51:04
+ * @LastEditTime: 2022-10-25 23:53:30
  * @FilePath: \jungehouseAdmin\src\views\order\dialog\addOrEdit.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved.
 -->
@@ -199,7 +199,8 @@
             <image-upload :limit="1" @input="titleImg" :fileSize="1"></image-upload>
           </el-form-item>
           <el-form-item label="房屋图片(부동산 이미지)：">
-            <image-upload :limit="20" @input="fileList" :fileSize="1"></image-upload>
+            <image-upload :limit="20" @input="fileList" :fileSize="20"></image-upload>
+            <!-- <upload-multi-image></upload-multi-image> -->
           </el-form-item>
           <el-form-item label="绑定经纪人(매니저 바인딩)：" prop="middlemanId">
             <el-select v-model="addorputForm.middlemanId" size="medium" style="width: 200px; margin-right: 10px"
@@ -240,6 +241,7 @@
 import naverMap from "./naverMap.vue";
 import FileUpload from "../../../components/FileUpload/index.vue";
 import ImageUpload from "../../../components/ImageUpload/index.vue";
+import uploadMultiImage from '@/components/ImageUploadMouse/index.vue'
 import { listmiddleman } from "@/api/agent/index";
 import { addRoom, updateRoom, addressList } from "@/api/order/index";
 export default {
@@ -263,6 +265,7 @@ export default {
     naverMap,
     FileUpload,
     ImageUpload,
+    uploadMultiImage
   },
   data() {
     return {
