@@ -46,6 +46,17 @@ import 'quill/dist/quill.bubble.css'
 import Viewer from 'v-viewer'
 import 'viewerjs/dist/viewer.css'
 Vue.use(Viewer)
+import VideoPlayer from 'vue-video-player'
+
+// 引入方式一
+import 'vue-video-player/src/custom-theme.css'
+import 'video.js/dist/video-js.css'
+
+// 引入方式二
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
+
+Vue.use(VideoPlayer)
 
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts

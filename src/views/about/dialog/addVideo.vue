@@ -7,11 +7,6 @@
                     <el-input v-model="addorputForm.dictLabel" size="medium" placeholder="输入视频名称" autocomplete="off">
                     </el-input>
                 </el-form-item>
-                <!--:action="videoUpload.url" 代表调取后台视频上传的方法路径-->
-                <!--:headers="videoUpload.headers" 代表访问的token验证，配置错的话上传方法访问受阻-->
-                <!--:before-upload="beforeUploadVideo" 代表上传前回调，进行验证是否符合规定的要求-->
-                <!--:on-progress="uploadVideoProcess" 代表上传实时进度条-->
-                <!--:on-success="handleVideoSuccess" 代表上传成功后的回调，会返回上传成功后该视频的存储路径-->
                 <el-form-item label="上传视频" prop="courseUrl">
                     <el-upload class="avatar-uploader el-upload--text" :headers="videoUpload.headers"
                         :action="videoUpload.url" :show-file-list="false" accept=".mp4" :on-success="handleVideoSuccess"

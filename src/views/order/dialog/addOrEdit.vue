@@ -3,14 +3,14 @@
  * @Author: wangcc
  * @Date: 2022-09-01 11:54:02
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-10-25 23:53:30
+ * @LastEditTime: 2022-10-26 21:53:25
  * @FilePath: \jungehouseAdmin\src\views\order\dialog\addOrEdit.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved.
 -->
 <template>
   <div>
-    <el-dialog :title="title" :visible.sync="addorputVisible" width="80%" :destroy-on-close="true"
-      :close-on-click-modal="false" :before-close="handleClose">
+    <el-dialog :title="title" :visible.sync="addorputVisible" v-if="addorputVisible" width="80%"
+      :destroy-on-close="true" :close-on-click-modal="false" :before-close="handleClose">
       <div class="dialog-box">
         <el-form :model="addorputForm" ref="addorputForm" :rules="rules" label-width="180px">
           <el-form-item label="房产货号(부동산 번호)：" prop="homeNum">
@@ -198,9 +198,36 @@
           <el-form-item label="封面图片(메인 이미지)：">
             <image-upload :limit="1" @input="titleImg" :fileSize="1"></image-upload>
           </el-form-item>
+          <el-form-item label="视频(비디오)：">
+            <el-upload class="avatar-uploader el-upload--text" :headers="videoUpload.headers" :action="videoUpload.url"
+              :show-file-list="false" accept=".mp4" :on-success="handleVideoSuccess" :before-upload="beforeUploadVideo"
+              :on-progress="uploadVideoProcess">
+
+              <!--视频区域，:src里面存放视频上传成功后的存储地址-->
+              <video style="width: 50%;" v-if="showVideoPath != '' && !videoFlag"
+                :src="videoUpload.url2 + showVideoPath" class="avatar video-avatar" controls="controls">
+                您的浏览器不支持视频播放
+              </video>
+
+              <!-- 变量showVideoPath如果不存在，就不显示，存在就显示视频 -->
+              <i v-else-if="showVideoPath == '' && !videoFlag" class="el-icon-plus avatar-uploader-icon">
+              </i>
+              <!--上传进度条区域-->
+              <el-progress :stroke-width="10" class="progressType" v-if="videoFlag == true" type="circle"
+                :percentage="videoUploadPercent" style="margin-top:30px;">
+              </el-progress>
+
+              <!--此为视频点击上传按钮 isShowUploadVideo代表按钮显示与否-->
+              <el-button class="video-btn" slot="trigger" size="small" v-if="isShowUploadVideo" type="primary">点击重新上传视频
+              </el-button>
+            </el-upload>
+          </el-form-item>
+          <el-form-item style="position: relative ;">
+            <el-input type="hidden" v-model="form.courseUrl" readonly class="noAlert" placeholder="" />
+          </el-form-item>
           <el-form-item label="房屋图片(부동산 이미지)：">
-            <image-upload :limit="20" @input="fileList" :fileSize="20"></image-upload>
-            <!-- <upload-multi-image></upload-multi-image> -->
+            <!-- <image-upload :limit="20" @input="fileList" :fileSize="20"></image-upload> -->
+            <upload-multi-image @imgChange="imgFileList" :limit="20" :fileSize="20"></upload-multi-image>
           </el-form-item>
           <el-form-item label="绑定经纪人(매니저 바인딩)：" prop="middlemanId">
             <el-select v-model="addorputForm.middlemanId" size="medium" style="width: 200px; margin-right: 10px"
@@ -244,6 +271,7 @@ import ImageUpload from "../../../components/ImageUpload/index.vue";
 import uploadMultiImage from '@/components/ImageUploadMouse/index.vue'
 import { listmiddleman } from "@/api/agent/index";
 import { addRoom, updateRoom, addressList } from "@/api/order/index";
+import { getToken } from "@/utils/auth";
 export default {
   name: "addOrEdit",
   props: {
@@ -270,7 +298,6 @@ export default {
   data() {
     return {
       selectType: "",
-      uploadUrl: process.env.VUE_APP_BASE_API + "/common/upload", // 上传的图片服务器地址
       addorputVisible: false,
       mapVisible: false,
       rules: {
@@ -301,6 +328,20 @@ export default {
         middlemanId: [{ required: true, message: '请绑定经纪人(바인딩 브로커)', trigger: 'change' }],
         phone: [{ required: true, message: '请输入经纪人电话(브로커 전화)', trigger: 'blur' }],
       },
+      //拿到当前环境的请求前缀
+      videoUpload: {
+        // 设置上传的请求头部
+        headers: { Authorization: "Bearer " + getToken() },
+        // 上传的地址
+        url: process.env.VUE_APP_BASE_API + "/common/upload",
+        url2: process.env.VUE_APP_BASE_API,
+      },
+      form: {},
+      showVideoPath: "",
+      uploadUrl: "",//你要上传视频到你后台的地址
+      videoFlag: false, //是否显示进度条
+      videoUploadPercent: "", //进度条的进度，
+      isShowUploadVideo: false,//显示上传按钮
       cityOptions: [],
       setLngLat: [],
       peripheryAddress: "",
@@ -395,6 +436,8 @@ export default {
             this.searchFrom.county.label +
             "," +
             this.searchFrom.street.label;
+          this.addorputForm.roomImages.push({ image: this.form.courseUrl })
+
           console.log(this.addorputForm);
           addRoom({ ...this.addorputForm }).then((res) => {
             if (res.code == 200) {
@@ -408,6 +451,44 @@ export default {
           return false;
         }
       });
+    },
+    //上传前回调
+    beforeUploadVideo(file) {
+      const isLt1024M = (file.size / 1024 / 1024) < 1024;
+      this.form.videoSize = file.size / 1024 / 1024;
+      //判断是不是MP4格式视频
+      if (['video/mp4'].indexOf(file.type) != 0) {
+        this.$message.error('请上传正确的视频格式');
+        return false;
+      }
+      //单个视频大小限制在1024M以内
+      if (!isLt1024M) {
+        this.$message.error('上传视频大小不能超过1024MB哦!');
+        return false;
+      }
+      this.isShowUploadVideo = false;
+    },
+
+    //进度条
+    uploadVideoProcess(event, file, fileList) {
+      this.videoFlag = true;
+      this.videoUploadPercent = file.percentage.toFixed(0) * 1;
+      this.$modal.loading("正在视频，请稍候...");
+    },
+
+    //上传成功回调
+    handleVideoSuccess(res, file) {
+      this.isShowUploadVideo = true;
+      this.videoFlag = false;
+      this.videoUploadPercent = 0;
+      this.$modal.closeLoading();
+      if (res != "") {
+        this.showVideoPath = res.url;
+        // this.addorputForm.dictValue = res.url;
+        this.form.courseUrl = res.url;
+      } else {
+        this.$message.error('视频上传失败，请重新上传！');
+      }
     },
     // 打开地图选项天窗
     getLngLat(name) {
@@ -478,6 +559,16 @@ export default {
     titleImg(imig) {
       this.addorputForm.image = imig;
     },
+    imgFileList(img) {
+      console.log(img);
+      this.addorputForm.roomImages = [];
+      let Images = img;
+      Images.forEach((item) => {
+        let imgData = {};
+        imgData.image = item;
+        this.addorputForm.roomImages.push(imgData);
+      });
+    },
     // 获取经纪人列表
     getmiddleman() {
       listmiddleman({}).then((res) => {
@@ -529,6 +620,31 @@ export default {
 
   ::v-deep .ql-container {
     height: 79%;
+  }
+}
+
+.avatar-uploader-icon {
+  background-color: #fbfdff;
+  border: 1px dashed #c0ccda;
+  border-radius: 6px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 148px;
+  height: 148px;
+  cursor: pointer;
+  line-height: 146px;
+  vertical-align: top;
+  font-size: 28px;
+  color: #8c939d;
+}
+
+.avatar-uploader {
+  position: relative;
+
+  .video-btn {
+    position: absolute;
+    top: 0;
+    z-index: 9999;
   }
 }
 </style>
