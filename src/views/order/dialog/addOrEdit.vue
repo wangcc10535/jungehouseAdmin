@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-09-01 11:54:02
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-10-28 01:56:34
+ * @LastEditTime: 2022-10-28 02:16:59
  * @FilePath: \jungehouseAdmin\src\views\order\dialog\addOrEdit.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved.
 -->
@@ -202,10 +202,13 @@
             <el-upload class="avatar-uploader el-upload--text" :headers="videoUpload.headers" :action="videoUpload.url"
               :show-file-list="false" accept=".mp4" :on-success="handleVideoSuccess" :before-upload="beforeUploadVideo"
               :on-progress="uploadVideoProcess">
-              <video style="width: 50%;" v-if="showVideoPath != '' && !videoFlag"
+              <!-- <video style="width: 50%;" v-if="showVideoPath != '' && !videoFlag"
                 :src="videoUpload.url2 + showVideoPath" class="avatar video-avatar" controls="controls">
                 您的浏览器不支持视频播放
-              </video>
+              </video> -->
+              <video-player style="width: 50%;" v-if="showVideoPath != '' && !videoFlag"
+                class="video-player vjs-custom-skin" ref="videoPlayer" :playsinline="true" :options="playerOptions">
+              </video-player>
               <i v-else-if="showVideoPath == '' && !videoFlag" class="el-icon-plus avatar-uploader-icon">
               </i>
               <el-progress :stroke-width="10" class="progressType" v-if="videoFlag == true" type="circle"
@@ -478,6 +481,7 @@ export default {
       this.$modal.closeLoading();
       if (res != "") {
         this.showVideoPath = res.url;
+        this.playerOptions.sources[0].src = res.url;
         // this.addorputForm.dictValue = res.url;
         this.form.courseUrl = res.url;
       } else {
