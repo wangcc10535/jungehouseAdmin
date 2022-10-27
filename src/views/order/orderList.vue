@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-08-31 17:23:30
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-10-07 13:15:01
+ * @LastEditTime: 2022-10-28 02:12:17
  * @FilePath: \jungehouseAdmin\src\views\order\orderList.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
@@ -107,9 +107,9 @@
               }}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="titleLabel" label="标题标签(제목 태그)" align="center">
+          <el-table-column label="标题标签(제목 태그)" align="center">
             <template slot-scope="{ row }">
-              <span>{{
+              <span v-if="row.titleLabel">{{
                 selectDictLabels(dict.type.title_type, row.titleLabel)
               }}</span>
             </template>

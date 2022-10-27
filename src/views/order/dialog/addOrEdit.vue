@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-09-01 11:54:02
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-10-26 21:53:25
+ * @LastEditTime: 2022-10-28 01:56:34
  * @FilePath: \jungehouseAdmin\src\views\order\dialog\addOrEdit.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved.
 -->
@@ -202,22 +202,15 @@
             <el-upload class="avatar-uploader el-upload--text" :headers="videoUpload.headers" :action="videoUpload.url"
               :show-file-list="false" accept=".mp4" :on-success="handleVideoSuccess" :before-upload="beforeUploadVideo"
               :on-progress="uploadVideoProcess">
-
-              <!--视频区域，:src里面存放视频上传成功后的存储地址-->
               <video style="width: 50%;" v-if="showVideoPath != '' && !videoFlag"
                 :src="videoUpload.url2 + showVideoPath" class="avatar video-avatar" controls="controls">
                 您的浏览器不支持视频播放
               </video>
-
-              <!-- 变量showVideoPath如果不存在，就不显示，存在就显示视频 -->
               <i v-else-if="showVideoPath == '' && !videoFlag" class="el-icon-plus avatar-uploader-icon">
               </i>
-              <!--上传进度条区域-->
               <el-progress :stroke-width="10" class="progressType" v-if="videoFlag == true" type="circle"
                 :percentage="videoUploadPercent" style="margin-top:30px;">
               </el-progress>
-
-              <!--此为视频点击上传按钮 isShowUploadVideo代表按钮显示与否-->
               <el-button class="video-btn" slot="trigger" size="small" v-if="isShowUploadVideo" type="primary">点击重新上传视频
               </el-button>
             </el-upload>
@@ -333,7 +326,7 @@ export default {
         // 设置上传的请求头部
         headers: { Authorization: "Bearer " + getToken() },
         // 上传的地址
-        url: process.env.VUE_APP_BASE_API + "/common/upload",
+        url: process.env.VUE_APP_BASE_API + "/common/fileupload",
         url2: process.env.VUE_APP_BASE_API,
       },
       form: {},
@@ -436,8 +429,9 @@ export default {
             this.searchFrom.county.label +
             "," +
             this.searchFrom.street.label;
-          this.addorputForm.roomImages.push({ image: this.form.courseUrl })
-
+            if (this.form.courseUrl) {
+              this.addorputForm.video= this.form.courseUrl
+            }
           console.log(this.addorputForm);
           addRoom({ ...this.addorputForm }).then((res) => {
             if (res.code == 200) {

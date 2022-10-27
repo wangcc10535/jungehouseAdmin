@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-09-01 11:54:02
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-10-27 02:09:55
+ * @LastEditTime: 2022-10-28 01:14:39
  * @FilePath: \jungehouseAdmin\src\views\order\dialog\addOrEdit.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
@@ -183,8 +183,8 @@
                 :src="videoUpload.url2 + showVideoPath" class="avatar video-avatar">
                 您的浏览器不支持视频播放
               </video> -->
-              <video-player style="width: 50%;" v-if="showVideoPath != '' && !videoFlag" class="video-player vjs-custom-skin"
-                ref="videoPlayer" :playsinline="true" :options="playerOptions">
+              <video-player style="width: 50%;" v-if="showVideoPath != '' && !videoFlag"
+                class="video-player vjs-custom-skin" ref="videoPlayer" :playsinline="true" :options="playerOptions">
               </video-player>
               <!-- 变量showVideoPath如果不存在，就不显示，存在就显示视频 -->
               <i v-else-if="showVideoPath == '' && !videoFlag" class="el-icon-plus avatar-uploader-icon">
@@ -289,7 +289,7 @@ export default {
         // 设置上传的请求头部
         headers: { Authorization: "Bearer " + getToken() },
         // 上传的地址
-        url: "http://49.247.22.30:8080/common/upload",
+        url: "http://49.247.22.30:8080/common/fileupload",
         url2: "http://49.247.22.30:8080",
       },
       playerOptions: {
@@ -379,28 +379,25 @@ export default {
           this.imageFromList = [];
           let videoArr = []
           if (this.addorputForm.roomImages) {
-            this.form = {};
-            this.uploadUrl = "";//你要上传视频到你后台的地址
-            this.videoFlag = false;//是否显示进度条
-            this.videoUploadPercent = ""; //进度条的进度，
-            this.isShowUploadVideo = false //显示上传按钮
+            
             this.$refs.multiImg.setImg(this.imageFromList)
 
             this.addorputForm.roomImages.forEach((item) => {
               if (this.matchType(item.image) == 'image') {
                 this.imageFromList.push(item.image);
               }
-              if (this.matchType(item.image) == 'video') {
-                videoArr.push(item.image)
-                this.isShowUploadVideo = true
-              }
-
             });
-            this.playerOptions.sources[0].src = videoArr.toString()
-            console.log(this.playerOptions.sources[0].src);
-            this.showVideoPath = videoArr.toString()
+           
           }
-
+          if (this.addorputForm.video) {
+            this.form = {};
+            this.uploadUrl = "";//你要上传视频到你后台的地址
+            this.videoFlag = false;//是否显示进度条
+            this.videoUploadPercent = ""; //进度条的进度，
+            this.isShowUploadVideo = true //显示上传按钮
+            this.playerOptions.sources[0].src = this.addorputForm.video
+            this.showVideoPath = this.addorputForm.video
+          }
           this.lngLatList = this.addorputForm.roomSubways;
           this.peripheryList = this.addorputForm.roomNeighbors;
         }
@@ -448,7 +445,6 @@ export default {
       if (res != "") {
         this.showVideoPath = res.url;
         this.playerOptions.sources[0].src = res.url;
-        console.log(this.playerOptions.sources[0].src);
         // this.addorputForm.dictValue = res.url;
         this.form.courseUrl = res.url;
       } else {
@@ -489,13 +485,23 @@ export default {
     },
     // 添加房产信息
     dialogFormSubmit() {
-      this.addorputForm.option = this.checkboxGroup.toString();
+      if (this.addorputForm.option) {
+        this.addorputForm.option = this.checkboxGroup.toString();
+      }
+
       this.addorputForm.roomNeighbors = this.peripheryList;
       this.addorputForm.roomSubways = this.lngLatList;
-      this.addorputForm.marketingLabel =
-        this.addorputForm.marketingLabel.toString();
-      this.addorputForm.titleLabel = this.addorputForm.titleLabel.toString();
-      this.addorputForm.tradeType = this.addorputForm.tradeType.toString();
+      if (this.addorputForm.marketingLabel) {
+        this.addorputForm.marketingLabel =
+          this.addorputForm.marketingLabel.toString();
+      }
+      if (this.addorputForm.titleLabel) {
+        this.addorputForm.titleLabel = this.addorputForm.titleLabel.toString();
+      }
+      if (this.addorputForm.tradeType) {
+        this.addorputForm.tradeType = this.addorputForm.tradeType.toString();
+      }
+
       if (
         !this.searchFrom.city ||
         !this.searchFrom.county ||
@@ -510,29 +516,18 @@ export default {
         this.searchFrom.county.label +
         "," +
         this.searchFrom.street.label;
-      let roogImgArr = 0
-      this.addorputForm.roomImages = this.addorputForm.roomImages.map(item => {
-        if (this.matchType(item.image) == 'video') {
-          if (!this.form.courseUrl) {
-            this.$message.error('请上传视频！')
-          }
-          item.image = this.form.courseUrl
-        } else {
-          roogImgArr = 1
+        if (this.showVideoPath) {
+          this.addorputForm.video = this.showVideoPath
         }
-        return item
-      })
-      if (roogImgArr == 1) {
-        this.addorputForm.roomImages.push({
-          image: this.form.courseUrl
-        })
-      }
       console.log(this.addorputForm);
       updateRoom({ ...this.addorputForm }).then((res) => {
         if (res.code == 200) {
           this.$message.success("新增成功(성공적으로 추가되었습니다)！");
           this.handleClose();
-          this.$parent.getList();
+          this.$nextTick(() => {
+            this.$parent.getList();
+          })
+
         }
       });
     },
