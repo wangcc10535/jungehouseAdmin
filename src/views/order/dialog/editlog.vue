@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-09-01 11:54:02
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-10-28 01:14:39
+ * @LastEditTime: 2022-10-29 02:09:01
  * @FilePath: \jungehouseAdmin\src\views\order\dialog\addOrEdit.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
@@ -379,15 +379,10 @@ export default {
           this.imageFromList = [];
           let videoArr = []
           if (this.addorputForm.roomImages) {
-            
-            this.$refs.multiImg.setImg(this.imageFromList)
-
             this.addorputForm.roomImages.forEach((item) => {
-              if (this.matchType(item.image) == 'image') {
-                this.imageFromList.push(item.image);
-              }
+              this.imageFromList.push(item.image);
             });
-           
+            this.$refs.multiImg.setImg(this.imageFromList)
           }
           if (this.addorputForm.video) {
             this.form = {};

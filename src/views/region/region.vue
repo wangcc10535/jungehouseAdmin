@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-09-01 11:43:28
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-10-12 22:32:25
+ * @LastEditTime: 2022-10-28 02:37:16
  * @FilePath: \jungehouseAdmin\src\views\region\region.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
@@ -58,7 +58,7 @@ export default {
       tableData: [],
       queryParams: {
         pageNum: 1,
-        pageSize: 10,
+        pageSize: 5,
       },
     };
   },
@@ -88,7 +88,7 @@ export default {
     },
     // 列表查询
     getList() {
-      getRegion().then((res) => {
+      getRegion(this.queryParams).then((res) => {
         if (res.code == 200) {
           this.tableData = res.data;
           this.total = res.total;
