@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-09-01 11:54:02
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-10-29 02:09:01
+ * @LastEditTime: 2022-10-29 16:53:29
  * @FilePath: \jungehouseAdmin\src\views\order\dialog\addOrEdit.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved. 
 -->
@@ -174,7 +174,7 @@
             <image-upload :limit="1" @input="titleImg" :value="addorputForm.image"></image-upload>
           </el-form-item>
           <el-form-item label="视频(비디오)：">
-            <el-upload class="avatar-uploader el-upload--text" :headers="videoUpload.headers" :action="videoUpload.url"
+            <el-upload class="avatar-uploader el-upload--text" :limit="1" :headers="videoUpload.headers" :action="videoUpload.url"
               :show-file-list="false" accept=".mp4" :on-success="handleVideoSuccess" :before-upload="beforeUploadVideo"
               :on-progress="uploadVideoProcess">
 
@@ -197,6 +197,7 @@
               <!--此为视频点击上传按钮 isShowUploadVideo代表按钮显示与否-->
               <el-button class="video-btn" slot="trigger" size="small" v-if="isShowUploadVideo" type="primary">点击重新上传视频
               </el-button>
+              <i v-if="isShowUploadVideo" class="el-icon-delete delIcon" @click="deleImg()"></i>
             </el-upload>
           </el-form-item>
           <el-form-item style="position: relative ;">
@@ -407,6 +408,16 @@ export default {
         this.addorputForm.roomImages.push(imgData);
       });
     },
+    deleImg() {
+      this.form= {};
+      this.showVideoPath= "";
+      this.uploadUrl= "";//你要上传视频到你后台的地址
+      this.videoFlag= false;//是否显示进度条
+      this.videoUploadPercent= ""; //进度条的进度，
+      this.isShowUploadVideo= false;//显示上传按钮
+      this.playerOptions.sources[0].src = '',
+      this.addorputForm.video = ''
+    },
     //上传前回调
     beforeUploadVideo(file) {
       const isLt1024M = (file.size / 1024 / 1024) < 1024;
@@ -511,8 +522,8 @@ export default {
         this.searchFrom.county.label +
         "," +
         this.searchFrom.street.label;
-        if (this.showVideoPath) {
-          this.addorputForm.video = this.showVideoPath
+        if (this.form.courseUrl) {
+          this.addorputForm.video = this.form.courseUrl
         }
       console.log(this.addorputForm);
       updateRoom({ ...this.addorputForm }).then((res) => {
@@ -784,5 +795,21 @@ export default {
     top: 0;
     z-index: 9999;
   }
+}
+.delIcon {
+  position: absolute;
+  top: 0;
+  left: 45%;
+  background-color: red;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 18px;
+  color: #fff;
+}
+
+.imgSty {
+  object-fit: contain;
+  background-color: #010101;
+  cursor: pointer;
 }
 </style>

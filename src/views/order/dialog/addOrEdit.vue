@@ -3,7 +3,7 @@
  * @Author: wangcc
  * @Date: 2022-09-01 11:54:02
  * @LastEditors: wangcc 1053578651@qq.com
- * @LastEditTime: 2022-10-29 01:22:21
+ * @LastEditTime: 2022-10-29 16:54:41
  * @FilePath: \jungehouseAdmin\src\views\order\dialog\addOrEdit.vue
  * @Copyright: Copyright (c) 2016~2022 by wangcc, All Rights Reserved.
 -->
@@ -216,6 +216,7 @@
               </el-progress>
               <el-button class="video-btn" slot="trigger" size="small" v-if="isShowUploadVideo" type="primary">点击重新上传视频
               </el-button>
+              <i v-if="isShowUploadVideo" class="el-icon-delete delIcon" @click="deleImg()"></i>
             </el-upload>
           </el-form-item>
           <el-form-item style="position: relative ;">
@@ -422,6 +423,16 @@ export default {
         }
       });
     },
+    deleImg() {
+      this.form= {};
+      this.showVideoPath= "";
+      this.uploadUrl= "";//你要上传视频到你后台的地址
+      this.videoFlag= false; //是否显示进度条
+      this.videoUploadPercent= ""; //进度条的进度，
+      this.isShowUploadVideo= false;//显示上传按钮
+      this.playerOptions.sources[0].src = '';
+      this.addorputForm.video = ''
+    },
     // 选择城市
     cityChange(index, e) {
       // console.log(index);
@@ -454,9 +465,9 @@ export default {
             this.searchFrom.county.label +
             "," +
             this.searchFrom.street.label;
-            if (this.form.courseUrl) {
-              this.addorputForm.video= this.form.courseUrl
-            }
+          if (this.form.courseUrl) {
+            this.addorputForm.video = this.form.courseUrl
+          }
           console.log(this.addorputForm);
           addRoom({ ...this.addorputForm }).then((res) => {
             if (res.code == 200) {
@@ -666,5 +677,22 @@ export default {
     top: 0;
     z-index: 9999;
   }
+}
+
+.delIcon {
+  position: absolute;
+  top: 0;
+  left: 45%;
+  background-color: red;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 18px;
+  color: #fff;
+}
+
+.imgSty {
+  object-fit: contain;
+  background-color: #010101;
+  cursor: pointer;
 }
 </style>
